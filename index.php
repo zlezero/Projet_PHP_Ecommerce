@@ -5,5 +5,5 @@ foreach($eleves as $eleve):
 endforeach;
 echo "Hello world !";
 echo "#GirlsTeam";
-
+echo "Test";
 ?>
