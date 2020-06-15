@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * Fichier de configuration contenant les variables d'environnement à adapter lors de l'installation
+ */
+
+return array(
+    'dev_env' => false,
+    'database' => array(
+        'dsn' => 'mysql',
+        'host' => 'databaseserver',
+        'port' => '3306',
+        'name' => 'databasename',
+        'user' => 'databaseuser',
+        'pwd' => 'databasepass'
+    )
+);
+
+?>
