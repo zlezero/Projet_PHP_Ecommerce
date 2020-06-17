@@ -22,9 +22,9 @@ class Role {
             
             $data = $req->fetch();
     
-            if (count($data) > 0) {        
-                $this->_idUtilisateur = $idRole;
-                $this->_nomRole = $data["nomRole"];     
+            if (count($data) > 0) {
+                $this->_idRole = $idRole;
+                $this->_nomRole = $data["nomRole"];
             } else {
                 throw new Exception("Aucun rôle n'existe avec cet identifiant");
             }

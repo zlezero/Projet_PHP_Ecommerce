@@ -12,7 +12,7 @@ class CB {
     public function __construct(int $idCB) {
 
         try {
-        
+            
             $this->bdd = Model::getDatabase();
         
             $req = $this->bdd->prepare("SELECT * FROM cb WHERE idCB = :id");
@@ -35,6 +35,23 @@ class CB {
             throw new Exception($e);
         }
 
+
+    }
+
+    public function getIdCB() {
+        return $this->_idCB;
+    }
+
+    public function getNumCB() {
+        return $this->_numCB;
+    }
+
+    public function getDateExpirationCB() {
+        return $this->_dateExpirationCB;
+    }
+
+    public function getCryptoCB() {
+        return $this->_cryptoCB;
     }
 
 }
