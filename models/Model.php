@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 require_once("class.Config.php");
 
 class Model
@@ -40,16 +42,15 @@ class Model
     /**
      * Méthode permettant de récupérer un modèle car le constructeur est privé (Implémentation du Design Pattern Singleton)
      */
-    public static function getModel()
+    public static function getDatabase()
     {
 
         if (is_null(self::$instance)) {
             self::$instance = new Model();
         }
 
-        return self::$instance;
+        return self::$instance->bdd;
 
     }
-    
 
 }
