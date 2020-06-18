@@ -1,0 +1,61 @@
+<?php 
+require_once('Model.php');
+require_once('class.Article.php');
+
+class ArticlesManager{
+
+    private $bdd;
+
+    public function __construct()
+    {
+        $this->bdd = Model::getDatabase();
+    }
+
+    public function getAllArticles(){
+        $req = $this->bdd->prepare('SELECT * FROM article');
+        $req->execute();
+        return $req->fetchAll();
+    }
+
+    public function getArticle(int $id){
+        $req = $this->bdd->prepare('SELECT * FROM article WHERE idArticle = :id');
+        $req->bindValue(':id',$id);
+        $req->execute();
+        return $req->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function addArticle(string $nomArticle, string $descriptionArticle,string $urlPhoto, float $prix, int $quantite, Categorie $categorie){
+        $req = $this->bdd->prepare('INSERT INTO article (nomArticle, descriptionArticle, urlPhoto, prix, quantite, idCategorie) VALUES (:nom, :descriptionArticle, :urlPhoto, :prix, :quantite, :idCat)');
+        $req->bindValue(':nom',$nomArticle);
+        $req->bindValue(':descriptionArticle',$descriptionArticle);
+        $req->bindValue(':urlPhoto',$urlPhoto);
+        $req->bindValue(':prix',$prix);
+        $req->bindValue(':quantite',$quantite);
+        $req->bindValue(':idCat',$categorie['idCategorie']);
+        $req->execute();
+        return new Article(intVal($this->bdd->lastInsertId()));
+    }
+
+    public function deleteArticle(int $id){
+        $req = $this->bdd->prepare('DELETE FROM article WHERE idArticle = :id');
+        $req->bindValue(':id',$id);
+        $req->execute();
+    }
+
+    public function updateArticle(Article $article){
+        $req = $this->bdd->prepare('UPDATE article SET nomArticle = :nom, descriptionArticle = :descriptionArticle, urlPhoto = :urlPhoto, prix = :prix, quantite = :quantite, idCategorie = :idCat WHERE idArticle = :id');
+        $req->bindValue(':id',$article->getIdArticle());
+        $req->bindValue(':nom',$article['nomArticle']);
+        $req->bindValue(':descriptionArticle',$article['descriptionArticle']);
+        $req->bindValue(':urlPhoto',$article['urlPhoto']);
+        $req->bindValue(':prix',$article['prix']);
+        $req->bindValue(':quantite',$article['quantite']);
+        $req->bindValue(':idCat',$article['categorie']['idCategorie']);
+        $req->execute();
+    }
+
+    public function checkArticleExists(int $id){
+        return $this->getArticle($id) !== false;
+    }
+}
+?>
