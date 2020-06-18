@@ -6,19 +6,18 @@ class SessionManager {
     
     private ?User $_User;
 
-    private PDO $bdd;
-
     public function __construct()
     {
-        $this->bdd = Model::getDatabase();
         $this->_User = null;
     }
 
     public function login(string $email, string $mdp) : bool {
 
+        $bdd = Model::getDatabase();
+        
         $sql = "SELECT idUtilisateur, mdp FROM Utilisateur WHERE email = :email";
 
-        $req = $this->bdd->prepare($sql);
+        $req = $bdd->prepare($sql);
 
         $req->bindValue('email', $email);
         $req->execute();
