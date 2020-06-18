@@ -11,7 +11,7 @@ class ArticlesManager{
         $this->bdd = Model::getDatabase();
     }
 
-    public function getAllArticles(string $typeAffichage,bool $afficherQuantitePositive){
+    public function getAllArticles(string $typeAffichage, bool $afficherQuantitePositive) {
 
         if($afficherQuantitePositive){
             $sql = "SELECT * FROM article WHERE quantite > 0";
@@ -22,7 +22,6 @@ class ArticlesManager{
         switch ($typeAffichage) {
             case "nomCroissant":
                 $sql .= " ORDER BY nomArticle";
-               
                 break;
             case "nomDecroissant":
                 $sql .= " ORDER BY nomArticle DESC";
