@@ -7,9 +7,9 @@ $(document).ready(function(){
             {value:valueSelected}
         ).done(function(response){
             if(response !== false){
-                alert('Ordre définie: ' + response);
+                $("#modalSuccesOrdreDefaut").show();
             } else{
-                
+
             }
             
         });
