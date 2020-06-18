@@ -1,6 +1,7 @@
     
     <!-- Page Content -->
     <div class="container">
+        <?php afficherSucces("L'ordre par défaut a bien été défini",true,"modalSuccesOrdreDefaut") ?>
         <div class="row">
 
             <div class="col-lg-3">
