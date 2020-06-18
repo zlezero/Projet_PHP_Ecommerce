@@ -7,7 +7,7 @@ class Role {
     private int $_idRole;
     private string $_nomRole;
 
-    private $bdd;
+    private PDO $bdd;
 
     public function __construct(int $idRole) {
 

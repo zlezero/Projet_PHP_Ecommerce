@@ -4,7 +4,7 @@ require_once("Model.php");
 
 class UserManager {
 
-    private $bdd;
+    private PDO $bdd;
 
     public function __construct() {
         $this->bdd = Model::getDatabase();
@@ -12,20 +12,26 @@ class UserManager {
 
     public function addUser(string $nom, string $prenom, string $email, string $mdp, Role $role, CB $cb) {
 
-        $sql = "INSERT INTO Utilisateur(nom, prenom, email, mdp, idRole, idCB) VALUES(:nom, :prenom, :email, :mdp, :idRole, :idCB)";
+        if (!$this->userExist($email)) {
 
-        $req = $this->bdd->prepare($sql);
+            $sql = "INSERT INTO Utilisateur(nom, prenom, email, mdp, idRole, idCB) VALUES(:nom, :prenom, :email, :mdp, :idRole, :idCB)";
 
-        $req->bindValue('nom', $nom);
-        $req->bindValue('prenom', $prenom);
-        $req->bindValue('email', $email);
-        $req->bindValue('mdp', password_hash($mdp, PASSWORD_DEFAULT));
-        $req->bindValue('idRole', $role->getIdRole());
-        $req->bindValue('idCB', $cb->getIdCB());
+            $req = $this->bdd->prepare($sql);
+    
+            $req->bindValue('nom', $nom);
+            $req->bindValue('prenom', $prenom);
+            $req->bindValue('email', $email);
+            $req->bindValue('mdp', password_hash($mdp, PASSWORD_DEFAULT));
+            $req->bindValue('idRole', $role->getIdRole());
+            $req->bindValue('idCB', $cb->getIdCB());
+    
+            $req->execute();
+    
+            return new User((intVal($this->bdd->lastInsertId())));
 
-        $req->execute();
-
-        return new User((intVal($this->bdd->lastInsertId())));
+        } else {
+            return false;
+        }
 
     }
 
@@ -67,6 +73,21 @@ class UserManager {
         $req->bindValue('idUtilisateur', $idUtilisateur);
 
         $req->execute();
+
+    }
+
+    public function userExist(string $email) : bool {
+
+        $sql = "SELECT idUtilisateur FROM Utilisateur WHERE email = :email";
+
+        $req = $this->bdd->prepare($sql);
+
+        $req->bindValue('email', $email);
+        $req->execute();
+
+        $data = $req->fetch();
+
+        return count($data) > 0;
 
     }
 

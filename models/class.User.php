@@ -13,7 +13,7 @@ class User {
     private Role $_role;
     private CB $_CB;
 
-    private $bdd;
+    private PDO $bdd;
 
     public function __construct(int $idUser) {
 

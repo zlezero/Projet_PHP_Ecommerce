@@ -7,7 +7,7 @@ class CB {
     private DateTime $_dateExpirationCB;
     private int $_cryptoCB;
 
-    private $bdd;
+    private PDO $bdd;
 
     public function __construct(int $idCB) {
 
