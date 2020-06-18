@@ -3,6 +3,7 @@
 session_start();
 
 require_once("class.Config.php");
+require_once('Utils/fonctions.php');
 
 class Model
 {

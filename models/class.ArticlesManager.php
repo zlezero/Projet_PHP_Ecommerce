@@ -11,10 +11,34 @@ class ArticlesManager{
         $this->bdd = Model::getDatabase();
     }
 
-    public function getAllArticles(){
-        $req = $this->bdd->prepare('SELECT * FROM article');
+    public function getAllArticles(string $typeAffichage,bool $afficherQuantitePositive){
+
+        if($afficherQuantitePositive){
+            $sql = "SELECT * FROM article WHERE quantite > 0";
+        }else{
+            $sql = "SELECT * FROM article";
+        }
+
+        switch ($typeAffichage) {
+            case "nomCroissant":
+                $sql .= " ORDER BY nomArticle";
+               
+                break;
+            case "nomDecroissant":
+                $sql .= " ORDER BY nomArticle DESC";
+                break;
+            case "prixCroissant":
+                $sql .= " ORDER BY prix";
+                break;
+            case "prixDecroissant":
+                $sql .= " ORDER BY prix DESC";
+                break;
+        }
+    
+        $req = $this->bdd->prepare($sql);
         $req->execute();
         return $req->fetchAll();
+        
     }
 
     public function getArticle(int $id){

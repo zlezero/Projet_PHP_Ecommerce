@@ -4,7 +4,7 @@ require_once("Utils/fonctions.php");
 require_once("models/Model.php"); 
 require_once("controllers/Controller.php");
 
-$controllers = ["index"]; //Liste des contrôleurs -- A RENSEIGNER
+$controllers = ["index","articles"]; //Liste des contrôleurs -- A RENSEIGNER
 $controller_default = "index"; //Nom du contrôleur par défaut-- A RENSEIGNER
 
 //On teste si le paramètre controller existe et correspond à un contrôleur de la liste $controllers
