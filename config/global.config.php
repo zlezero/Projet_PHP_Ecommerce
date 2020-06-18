@@ -13,7 +13,8 @@ return array(
         'name' => 'php_ecommerce',
         'user' => 'root',
         'pwd' => ''
-    )
+    ),
+    'defaultOrder' => 'nomArticle'
 );
 
 ?>
