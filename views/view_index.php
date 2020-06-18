@@ -47,10 +47,10 @@
                 <form action ="?controller=index&action=orderBy" method="POST">
                     <label for="Ordonnancement">Ordonner par</label>
                     <select class="form-control" id="ordreSelect" name="ordreSelect">
-                        <option value="nomCroissant">Nom Croissant</option>
-                        <option value="nomDecroissant">Nom Décroissant</option>
-                        <option value="prixCroissant">Prix Croissant</option>
-                        <option value="prixDecroissant">Prix Décroissant</option>
+                        <option value="nomCroissant" <?= ($data['typeAffichage'] == 'nomCroissant') ? 'selected' : '' ?> >Nom Croissant</option>
+                        <option value="nomDecroissant" <?= ($data['typeAffichage'] == 'nomDecroissant') ? 'selected' : '' ?> >Nom Décroissant</option>
+                        <option value="prixCroissant" <?= ($data['typeAffichage'] == 'prixCroissant') ? 'selected' : '' ?> >Prix Croissant</option>
+                        <option value="prixDecroissant" <?= ($data['typeAffichage'] == 'prixDecroissant') ? 'selected' : '' ?> >Prix Décroissant</option>
                     </select>
                     <button type="submit" class="btn btn-primary mb-2" value="tri">Trier</button>
                 </form>

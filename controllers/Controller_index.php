@@ -12,16 +12,20 @@ class Controller_index extends Controller {
 	public function action_index() {
 
 		$articlesManager = new ArticlesManager();
-		$articles = $articlesManager->getAllArticles("defaultvaLue",true);
+		$articles = $articlesManager->getAllArticles("defaultValue", true);
 		$this->render('index',[
-			'articles' => $articles
+			'articles' => $articles,
+			'typeAffichage'=> "defaultValeur"
 		]);
 
 	}
 
 	public function action_orderBy(){
+
 		$articlesManager = new ArticlesManager();
+
 		if(!empty($_POST)){
+
 			$typeAffichage = $_POST['ordreSelect'] ?? false;
 
 			if($typeAffichage){
@@ -35,7 +39,8 @@ class Controller_index extends Controller {
 
 		$this->render('index', [
 			'err' => $erreur ?? false,
-			'articles' => $articles
+			'articles' => $articles,
+			'typeAffichage' => $typeAffichage ?? 'defaultValue'
         ]);
 	}
 }
