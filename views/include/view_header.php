@@ -15,8 +15,21 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    
+    <link href="content/css/style_global.css" rel="stylesheet">
 
-    <link href="content/css/style_index.css" rel="stylesheet">
+    <?php 
+
+        if (file_exists("content/css/style_$vue.css")) {
+            ?> <link href="content/css/style_<?= $vue ?>.css" rel="stylesheet"> <?php
+        }
+
+        if (file_exists("content/js/js_$vue.js")) {
+            ?> <script src="content/js/js_<?= $vue ?>.js"></script> <?php
+        }
+
+    ?>
+
 
 </head>
 

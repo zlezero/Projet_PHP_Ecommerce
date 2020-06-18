@@ -48,6 +48,7 @@ abstract class Controller
 
         //On teste si la vue existe
         $file_name = "views/view_" . $vue . '.php';
+
         if (file_exists($file_name)) {
             //Si oui, on l'affiche
             include($file_name);
@@ -56,7 +57,7 @@ abstract class Controller
             $this->action_error("La vue n'existe pas !");
         }
 
-		require_once 'views/include/view_footer.php';
+		require_once('views/include/view_footer.php');
 
         die(); // Pour terminer le script
     }
