@@ -1,0 +1,1 @@
+ALTER TABLE `utilisateur` ADD UNIQUE( `email`);

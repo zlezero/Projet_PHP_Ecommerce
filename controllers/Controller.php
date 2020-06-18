@@ -1,5 +1,6 @@
 <?php
 
+require_once("models/class.SessionManager.php");
 
 abstract class Controller
 {
@@ -35,6 +36,10 @@ abstract class Controller
      */
     protected function render($vue, $data = [])
     {
+
+        if (!isset($_SESSION["sessionManager"])) {
+            $_SESSION["sessionManager"] = new SessionManager();
+        }
 
         //On extrait les données à afficher
         extract($data);
