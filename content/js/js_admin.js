@@ -20,7 +20,17 @@ $(document).ready( function() {
             $('#modalChooseDefaultOrder').modal('hide');
             
         });
+    
+    $('#formSupprimerArticle').submit(function(e) {
+
+        e.preventDefault();
+
+        const idArticle = $(this).data("id");
+        console.log(idArticle);
+    })
 
     });
+
+
 
 });

@@ -2,11 +2,23 @@
 
 require_once("Controller.php");
 require_once("models/class.ConfigArticles.php");
+require_once("models/class.ArticlesManager.php");
 
 class Controller_articles extends Controller {
 
 	public function action_default() {
-		$this->render('admin');
+		$this->action_admin();
+    }
+
+    public function action_admin(){
+        $articlesManager = new ArticlesManager();
+		$configOrder = new ConfigArticles();
+		$defaultValue = $configOrder->getDefaultOrder();
+		$allArticles = $articlesManager->getArticlesInfos($defaultValue);
+		$this->render('admin',[
+			'articles' => $allArticles,
+			'typeAffichage'=> $defaultValue
+		]);
     }
 
     public function action_defineDefaultOrder(){
@@ -53,24 +65,23 @@ class Controller_articles extends Controller {
 	public function action_deleteArticle(){
 
         // Check si admin est connecté
-        if(!empty($_POST)){
+        if(!empty($_GET)){
             $articlesOfManager = new ArticlesManager();
 
-            $idArticle = $_POST['idArticle'] ?? false;
+            $idArticle = $_GET['idArticle'] ?? false;
 
             if($idArticle){
                 if($articlesOfManager->checkArticleExists($idArticle)){
                     $articlesOfManager->deleteArticle($idArticle);
+                    $message= "";
                 } else{
-                    $erreur = "L'article que vous désirez supprimer n'existe pas";
+                    $message = "L'article que vous désirez supprimer n'existe pas";
                 }
             }else{
-                $erreur = "Fournissez l'id de l'article que vous désirez supprimer.";
+                $message = "Fournissez l'id de l'article que vous désirez supprimer.";
             }
         }
-        $this->render('manager', [
-            'err' => $erreur ?? false
-        ]);
+        echo json_encode($message);
     }
 
 }

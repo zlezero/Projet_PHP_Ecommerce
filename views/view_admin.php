@@ -3,10 +3,12 @@
 
         <?php afficherSucces("L'ordre par défaut a bien été défini", true, "modalSuccesOrdreDefaut"); ?>
         <?php afficherErreur("Une erreur est survenue lors de la définition de l'ordre par défaut", true, "modalErrorOrdreDefaut"); ?>
+        <?php afficherSucces("L'article a bien été supprimé",true,"modalSuccessDeleteArticle"); ?>
+        <?php afficherErreur("Une erreur a été detectée lors de la supression de l'article", true,"modalErrorDeleteArticle"); ?>
 
         <div class="row">
 
-            <div class="col-lg-3">
+            <div class="col">
 
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalChooseDefaultOrder">Définir l'ordre par défaut d'affichage des articles</button>
                 <div class="modal fade" id="modalChooseDefaultOrder" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -40,8 +42,165 @@
                 </div>
 
             </div>
-
         </div>
+
+        
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h2>Gérer les articles</h2>
+                    </div>
+                    <div class="col-sm-6">
+                        <a href="#ajouterArticleModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Ajouter un nouvel article</span></a>					
+                    </div>
+                </div>
+            </div>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">idArticle</th>
+                        <th scope="col">Nom Article</th>
+                        <th scope="col">Description Article</th>
+                        <th scope="col">Prix</th>
+                        <th scope="col">Quantité</th>
+                        <th scope="col">Nom Categorie</th>
+                        <th scope="col">Photo</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach($data['articles'] as $indice => $value){
+                    ?>
+                    <tr>
+                        <th scope="row"><?=$value->getIdArticle()?></th>
+                        <td><?=$value->getNomArticle()?></td>
+                        <td><?=$value->getDescriptionArticle()?></td>
+                        <td><?=$value->getPrixArticle()?></td>
+                        <td><?=$value->getQuantiteArticle()?></td>
+                        <td><?=$value->getCategorieArticle()->getNomCategorie()?></td>
+                        <td><img src="<?=$value->getUrlPhotoArticle();?>" alt=""></td>
+                        <td>
+                            <a data-target="#modifierArticleModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Modifier">&#xE254;</i></a>
+                            <a href="#" data-target="#supprimerArticleModal" class="delete" data-toggle="modal" data-id="<?=$value->getIdArticle()?>" ><i class="material-icons" data-toggle="tooltip" title="Supprimer">&#xE872;</i></a>
+                        </td>
+                    </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+        </div>
+
+
+        <!-- Ajouter Article Modal HTML -->
+        <div id="ajouterArticleModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form>
+                    <div class="modal-header">						
+                        <h4 class="modal-title">Ajouter Article</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body">					
+                        <div class="form-group">
+                            <label>Nom</label>
+                            <input type="text" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea class="form-control" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>UrlPhoto</label>
+                            <input type="text" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Prix</label>
+                            <input class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Quantité</label>
+                            <input type = "number" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Id de la catégorie</label>
+                            <input type="number" class="form-control" required>
+                        </div>					
+                    </div>
+                    <div class="modal-footer">
+                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Fermer">
+                        <input type="submit" class="btn btn-success" value="Ajouter">
+                    </div>
+                </form>
+            </div>
+        </div>
+        </div>
+
+        <!-- Modifier Article Modal HTML -->
+        <div id="modifierArticleModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form>
+                    <div class="modal-header">						
+                        <h4 class="modal-title">Modifier Article</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body">					
+                    <div class="form-group">
+                            <label>Nom</label>
+                            <input type="text" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea class="form-control" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>UrlPhoto</label>
+                            <input type="text" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Prix</label>
+                            <input class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Quantité</label>
+                            <input type = "number" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Id de la catégorie</label>
+                            <input type="number" class="form-control" required>
+                        </div>			
+                    </div>
+                    <div class="modal-footer">
+                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Fermer">
+                        <input type="submit" class="btn btn-info" value="Modifier">
+                    </div>
+                </form>
+            </div>
+        </div>
+        </div>
+
+        <!-- Supprimer Article Modal HTML -->
+        <div id="supprimerArticleModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="formSupprimerArticle">
+                    <div class="modal-header">						
+                        <h4 class="modal-title">Supprimer Article</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body">					
+                        <p>Etes-vous sur de vouloir supprimer cet article ?</p>
+                        <p class="text-warning"><small>Cette action est irréversible.</small></p>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Fermer">
+                        <input type="submit" class="btn btn-danger" value="Supprimer">
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
 
     </div>
     <!-- /.container -->

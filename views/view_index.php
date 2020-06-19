@@ -70,7 +70,9 @@
                                     <p class="card-text"><?=$value['descriptionArticle']?></p>
                                 </div>
                                 <div class="card-footer d-flex justify-content-between align-items-center">
-                                    <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                                    <button type="button" class="btn btn-light rounded-circle" data-toggle="button" aria-pressed="false" autocomplete="off">
+                                        <i class="far fa-heart"></i>
+                                    </button>
                                     <a href="#" onclick="addPanier(<?=$value['idArticle'].','.$_SESSION['idCommande']?>)" class="btn btn-danger mt-3"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
                                 </div>
                             </div>
