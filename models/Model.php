@@ -14,7 +14,7 @@ class Model
     /**
      * Attribut contenant l'instance PDO
      */
-    private PDO $bdd;
+    private $bdd;
 
     /**
      * Attribut statique qui contiendra l'unique instance de Model

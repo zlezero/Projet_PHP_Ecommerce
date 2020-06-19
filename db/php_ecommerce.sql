@@ -21,7 +21,7 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `php_ecommerce`
 --
-CREATE DATABASE IF NOT EXISTS `php_ecommerce` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+CREATE DATABASE IF NOT EXISTS `php_ecommerce`;
 USE `php_ecommerce`;
 
 -- --------------------------------------------------------
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `article` (
   `idCategorie` int(11) NOT NULL,
   PRIMARY KEY (`idArticle`),
   KEY `idCategorie` (`idCategorie`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ;
 
 -- --------------------------------------------------------
 

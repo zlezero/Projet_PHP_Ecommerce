@@ -5,7 +5,7 @@ require_once("class.User.php");
 
 class SessionManager {
     
-    private ?User $_User;
+    private  $_User;
 
     public function __construct()
     {

@@ -5,12 +5,20 @@
             <div class="col-lg-3">
 
                 <h1 class="my-4">Catégories</h1>
-                <div class="list-group">
-                    <?php foreach($data['categories'] as $indice => $value){
-                    ?>
-                    <a href="#" class="list-group-item list-group-item-light"><?=$value['nomCategorie']?></a>
-                    <?php } ?>
-                </div>
+                <form action ="?controller=index&action=orderBy" method="POST">
+                    <div class="list-group">
+                        <?php foreach($data['categories'] as $indice => $value){
+                        ?>
+                        <a href="#" class="list-group-item list-group-item-light"><?=$value['nomCategorie']?></a>
+                        <?php } ?>
+                        <label for="min">Min</label>
+                        <input type="text" name="min" placeholder="1">
+                        <label for="max" >Max</label>
+                        <input type="text" name="max" placeholder="100">
+                        <button type="submit">Filtrer</button>
+                    </div>
+                </form>
+
 
             </div>
             <!-- /.col-lg-3 -->
