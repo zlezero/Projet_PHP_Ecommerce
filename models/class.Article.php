@@ -4,13 +4,13 @@ require_once('class.Categorie.php');
 
 class Article {
 
-    private int $idArticle;
-    private string $nomArticle;
-    private string $descriptionArticle;
-    private string $urlPhoto;
-    private float $prix;
-    private int $quantite;
-    private Categorie $categorie;
+    private $idArticle;
+    private  $nomArticle;
+    private  $descriptionArticle;
+    private  $urlPhoto;
+    private  $prix;
+    private  $quantite;
+    private  $categorie;
 
     private $bdd;
 
