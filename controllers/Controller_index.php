@@ -2,6 +2,7 @@
 
 require_once("Controller.php");
 require_once("models/class.ArticlesManager.php");
+require_once("models/class.CommandeManager.php");
 
 class Controller_index extends Controller {
 
@@ -12,12 +13,15 @@ class Controller_index extends Controller {
 	public function action_index() {
 
 		$articlesManager = new ArticlesManager();
-		$articles = $articlesManager->getAllArticles("defaultValue", true);
+		$articles = $articlesManager->getAllArticles("defaultvaLue",true);
+		if(empty($_SESSION["idCommande"])){
+            $commandeManager=new CommandeManager();
+            $_SESSION["idCommande"]= $commandeManager->addCommande()->getidCommande();
+        }
 		$this->render('index',[
 			'articles' => $articles,
 			'typeAffichage'=> "defaultValeur"
 		]);
-
 	}
 
 	public function action_orderBy(){

@@ -72,7 +72,7 @@
                                 </div>
                                 <div class="card-footer d-flex justify-content-between align-items-center">
                                     <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                                    <a href="#" class="btn btn-danger mt-3"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+                                    <a href="#" onclick="addPanier(<?=$value['idArticle'].','.$_SESSION['idCommande']?>)" class="btn btn-danger mt-3"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
                                 </div>
                             </div>
                         </div>
