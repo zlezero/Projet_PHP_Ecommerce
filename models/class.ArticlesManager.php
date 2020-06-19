@@ -37,7 +37,34 @@ class ArticlesManager{
         $req = $this->bdd->prepare($sql);
         $req->execute();
         return $req->fetchAll();
-        
+    }
+
+    public function getArticlesInfos(string $typeAffichage){
+
+        switch ($typeAffichage) {
+            case "nomCroissant":
+                $sql = " SELECT * FROM article ORDER BY nomArticle";
+                break;
+            case "nomDecroissant":
+                $sql = " SELECT * FROM article ORDER BY nomArticle DESC";
+                break;
+            case "prixCroissant":
+                $sql = " SELECT * FROM article ORDER BY prix";
+                break;
+            case "prixDecroissant":
+                $sql = " SELECT * FROM article ORDER BY prix DESC";
+                break;
+        }
+    
+        $req = $this->bdd->prepare($sql);
+        $req->execute();
+        $data = $req->fetchAll();
+        $resultat = array();
+        foreach($data as $indice => $value){
+            $article = new Article($value['idArticle']);
+            array_push($resultat,$article);
+        }
+        return $resultat;
     }
 
     public function getArticle(int $id){

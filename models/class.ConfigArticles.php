@@ -3,7 +3,7 @@ require_once('Model.php');
 
 class ConfigArticles{
 
-    private $defaultOrder;
+    private string $defaultOrder;
 
     private $bdd;
 
