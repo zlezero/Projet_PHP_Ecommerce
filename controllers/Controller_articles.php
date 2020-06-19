@@ -68,14 +68,14 @@ class Controller_articles extends Controller {
         if(!empty($_GET)){
             $articlesOfManager = new ArticlesManager();
 
-            $idArticle = $_GET['idArticle'] ?? false;
+            $idArticle = $_GET['value'] ?? false;
 
             if($idArticle){
                 if($articlesOfManager->checkArticleExists($idArticle)){
                     $articlesOfManager->deleteArticle($idArticle);
-                    $message= "";
+                    $message= "L'article a bien été supprimé.";
                 } else{
-                    $message = "L'article que vous désirez supprimer n'existe pas";
+                    $message = "L'article que vous désirez supprimer n'existe pas.";
                 }
             }else{
                 $message = "Fournissez l'id de l'article que vous désirez supprimer.";

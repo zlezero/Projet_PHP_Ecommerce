@@ -9,7 +9,7 @@ function afficherSucces(string $message, bool $hide, string $id) { //Affiche une
         </button>
 
         <span class="text-success align-middle">
-            <i class="fa fa-check"></i><strong> Succès :</strong> <?php echo $message; ?>
+            <i class="fa fa-check"></i><div id="<?php echo $id."Text"?>"><strong> Succès :</strong> <?php echo $message; ?></div>
         </span>
     </div>
 <?php
@@ -24,7 +24,7 @@ function afficherErreur(string $message, bool $hide, string $id) { //Affiche une
         </button>
 
         <span class="text-danger align-middle">
-            <i class="fa fa-close"></i><strong> Erreur :</strong> <?php echo $message; ?>
+            <i class="fa fa-close"></i><div id="<?php echo $id."Text"?>"><strong> Erreur :</strong> <?php echo $message; ?></div>
         </span>
     </div>
 <?php
