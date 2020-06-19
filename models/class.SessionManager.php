@@ -4,7 +4,7 @@ require_once("Model.php");
 
 class SessionManager {
     
-    private ?User $_User;
+    private  $_User;
 
     public function __construct()
     {

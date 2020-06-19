@@ -6,12 +6,18 @@
             <div class="col-lg-3">
 
                 <h1 class="my-4">Shop Name</h1>
-                <div class="list-group">
-                    <a href="#" class="list-group-item">Category 1</a>
-                    <a href="#" class="list-group-item">Category 2</a>
-                    <a href="#" class="list-group-item">Category 3</a>
-                </div>
-
+                <form action ="?controller=index&action=orderBy" method="POST">
+                   <div class="list-group">
+                       <button type="submit" class="btn btn-primary mb-2" name="category" value="1">Category 1</button>
+                       <button type="submit" class="btn btn-primary mb-2" name="category" value="2">Category 2</button>
+                       <button type="submit" class="btn btn-primary mb-2" name="category" value="3">Category 3</button>
+                       <label for="min">Min</label>
+                       <input type="text" name="min" placeholder="1">
+                       <label for="max" >Max</label>
+                       <input type="text" name="max" placeholder="100">
+                       <button type="submit">Filtrer</button>
+                     </div>
+               </form>
             </div>
             <!-- /.col-lg-3 -->
 

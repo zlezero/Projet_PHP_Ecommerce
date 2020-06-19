@@ -3,8 +3,8 @@ require_once('Model.Php');
 
 class Categorie {
 
-    private int $idCategorie;
-    private string $nomCategorie;
+    private $idCategorie;
+    private $nomCategorie;
 
     private $bdd;
 
