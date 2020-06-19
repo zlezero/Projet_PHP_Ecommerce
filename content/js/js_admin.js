@@ -26,7 +26,19 @@ $(document).ready( function() {
         e.preventDefault();
 
         const idArticle = $(this).data("id");
-        console.log(idArticle);
+        
+        $.get(
+            'index.php?controller=articles&action=deleteArticle',
+            {value:idArticle}
+        ).done(function(response) {
+
+            if(response !== false) {
+                $("#modalSuccessDeleteArticle").show();
+            } else {
+                $("#modalErrorDeleteArticle").show();
+            }
+
+            $('#formSupprimerArticle').modal('hide');
     })
 
     });
