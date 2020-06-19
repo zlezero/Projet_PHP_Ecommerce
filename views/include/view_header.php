@@ -113,6 +113,11 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
+                        <!--TODO : critère si l'utilisateur est connecté TO DO -->
+                        <li class="nav-item order-2 order-md-1"><a href="index.php?controller=commande&action=liste" class="nav-link" title="Historique des commandes">Commandes</a></li>
+                        <li class="nav-item order-2 order-md-1"><a href="index.php?controller=commande&action=consulter" class="nav-link" title="Panier"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
+
+                        
 
                         <li class="nav-item order-2 order-md-1"><a href="#" class="nav-link" title="settings"><i class="fa fa-cog fa-fw fa-lg"></i></a></li>
                         <li class="dropdown order-1">

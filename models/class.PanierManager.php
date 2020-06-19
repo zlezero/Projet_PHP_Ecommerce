@@ -74,7 +74,7 @@ class PanierManager {
 
         $data = $req->fetch();
 
-        return count($data) > 0;
+        return $data!=false;
     }
 
 }

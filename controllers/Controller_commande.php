@@ -18,9 +18,30 @@ class Controller_commande extends Controller {
         }
 		$commande=new Commande($_SESSION["idCommande"]);
 
-		$this->render('commande',[
+		$this->render('consulter',[
 			'commande' => $commande
 		]);
 	}
 
+	public function action_valider(){
+		$commandeManager=new CommandeManager();
+		if(empty($_SESSION["idCommande"])){
+			return;
+        }
+		$commande=new Commande($_SESSION["idCommande"]);
+		$commande->setStatutCommande(new StatutCommande(2));
+		$commandeManager->updateStatutCommande($commande);
+		$this->render('consulter',[
+			'commande' => $commande
+		]);
+	}
+
+	//TODO : ajouter les critères pour tourner sur l'utilisateur connecté TO DO
+public function action_liste(){
+		$commandeManager=new CommandeManager();
+		$commandes=$commandeManager->getAll();
+		$this->render('liste',[
+			'liste' => $commandes
+		]);
+	}
 }

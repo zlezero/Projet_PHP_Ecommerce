@@ -21,7 +21,7 @@ class StatutCommande {
             
             $data = $req->fetch();
     
-            if (count($data) > 0) {
+            if ($data !=false) {
 
                 $this->_idStatutCommande = $id;
                 $this->_nomStatutCommande = $data["nomStatutCommande"];
