@@ -11,11 +11,31 @@ class CommandeManager {
         $this->bdd = Model::getDatabase();
     }
 
+    //TODO : inverser les parties commentées et décommentées pour ne sélectionner que les commandes d'un utilisateur// TO DO
+
+    //public function getAll(int $idUtilisateur){
+    public function getAll(){
+        $this->bdd = Model::getDatabase();
+    
+        //$req = $this->bdd->prepare("SELECT idCommande FROM Commande WHERE  idUtilisateur = :idU");
+        //$req->bindParam('idU', $idUtilisateur);
+        $req = $this->bdd->prepare("SELECT idCommande FROM Commande");
+        $req->execute();
+
+        $result = $req->fetchAll();
+        $liste=array();
+        foreach($result as $indice=>$value){
+            $commande=new Commande($value['idCommande']);
+            array_push($liste,$commande);
+        }
+        return $liste;
+    }
+
     public function addCommande() {
-            $sql = "INSERT INTO Commande(idStatutCommande) VALUES(1)";
+            $sql = "INSERT INTO Commande(idStatutCommande,dateCommande) VALUES(1,SYSDATE)";
 
             $req = $this->bdd->prepare($sql);
-    
+
             $req->execute();
             $commandeID = (intVal($this->bdd->lastInsertId()));
             var_dump($commandeID);
@@ -24,10 +44,12 @@ class CommandeManager {
 
     public function updateStatutCommande(Commande $commande) {
 
-        $sql = "UPDATE Commande SET idStatutCommande = :idStatutCommande WHERE idCommande = :idCommande";
+        $sql = "UPDATE Commande SET idStatutCommande = :idStatutCommande,dateCommande = SYSDATE WHERE idCommande = :idCommande";
 
         $req = $this->bdd->prepare($sql);
 
+        $req->bindValue('idCommande', $commande->getidCommande());
+        
         $req->bindValue('idStatutCommande', $commande->getStatutCommande()->getidStatutCommande());
 
         $req->execute();

@@ -10,6 +10,7 @@ class Commande {
     private ?User $_user;
     private int $_idCommande;
     private StatutCommande $_statutCommande;
+    private DateTime $_dateCommande;
     private array $_articles;
     private PDO $bdd;
     public function __construct(int $idCommande) {
@@ -29,6 +30,7 @@ class Commande {
                 $panierManager = new PanierManager();
                 $this->_idCommande = $idCommande;
                 $this->_user =$data["idUtilisateur"]? new User($data["idUtilisateur"]) : null;
+                $this->_dateCommande=new DateTime($data["dateCommande"]);
                 $this->_statutCommande = new StatutCommande($data["idStatutCommande"]);
                 $this->_articles=$panierManager->getAll($idCommande);
             } else {
@@ -51,7 +53,9 @@ class Commande {
     public function getArticles() {
         return $this->_articles;
     }
-
+    public function getDateCommande() {
+        return $this->_dateCommande;
+    }
     public function getStatutCommande() {
         return $this->_statutCommande;
     }
