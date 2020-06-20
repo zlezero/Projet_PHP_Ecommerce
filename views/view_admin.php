@@ -5,6 +5,10 @@
         <?php afficherErreur("Une erreur est survenue lors de la définition de l'ordre par défaut", true, "modalErrorOrdreDefaut"); ?>
         <?php afficherSucces("L'article a bien été supprimé",true,"modalSuccessDeleteArticle"); ?>
         <?php afficherErreur("Une erreur a été detectée lors de la supression de l'article", true,"modalErrorDeleteArticle"); ?>
+        <?php afficherSucces("L'article a bien été ajouté",true,"modalSuccessAddArticle"); ?>
+        <?php afficherErreur("Une erreur a été detectée lors de l'ajout de l'article", true,"modalErrorAddArticle"); ?>
+        <?php afficherSucces("L'article a bien été modifié",true,"modalSuccessModifyArticle"); ?>
+        <?php afficherErreur("Une erreur a été detectée lors de la modification de l'article", true,"modalErrorModifyArticle"); ?>
         
         
         <div class="table-wrapper">
@@ -44,7 +48,7 @@
                         <td><?=$value->getCategorieArticle()->getNomCategorie()?></td>
                         <td><img style="width:56px;height:56px;" src="<?=$value->getUrlPhotoArticle();?>" alt=""></td>
                         <td>
-                            <a data-target="#modifierArticleModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Modifier">&#xE254;</i></a>
+                            <a href="#" data-target="#modifierArticleModal" class="edit" data-toggle="modal" data-idart="<?=$value->getIdArticle()?>"><i class="material-icons" data-toggle="tooltip" title="Modifier">&#xE254;</i></a>
                             <a href="#" data-target="#supprimerArticleModal" class="delete" data-toggle="modal" data-id="<?=$value->getIdArticle()?>" ><i class="material-icons" data-toggle="tooltip" title="Supprimer">&#xE872;</i></a>
                         </td>
                     </tr>
@@ -88,7 +92,7 @@
         <div id="ajouterArticleModal" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form>
+                    <form id="formAjouterArticle">
                         <div class="modal-header">						
                             <h4 class="modal-title">Ajouter Article</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -96,28 +100,35 @@
                         <div class="modal-body">					
                             <div class="form-group">
                                 <label>Nom</label>
-                                <input type="text" class="form-control" required>
+                                <input type="text" name="nomArticle" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label>Description</label>
-                                <textarea class="form-control" required></textarea>
+                                <input type="text" name="descriptionArticle" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label>UrlPhoto</label>
-                                <input type="text" class="form-control" required>
+                                <input type="text" name="urlPhoto" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label>Prix</label>
-                                <input class="form-control" required>
+                                <input type = "number" name="prix" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label>Quantité</label>
-                                <input type = "number" class="form-control" required>
+                                <input type = "number" name="quantite" class="form-control" required>
                             </div>
-                            <div class="form-group">
-                                <label>Id de la catégorie</label>
-                                <input type="number" class="form-control" required>
-                            </div>					
+                            <div class="dropdown">
+                                <button class="btn btn-info dropdown-toggle" type="button" id="addDropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Nom de la catégorie
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="addDropdownList">
+                                <?php foreach($data['categories'] as $indice => $value){
+                                ?>
+                                    <a class="dropdown-item" href="#" name="<?=$value['idCategorie']?>"><?=$value['nomCategorie']?></a>
+                                <?php } ?>
+                                </div>
+                            </div>     	  					
                         </div>
                         <div class="modal-footer">
                             <input type="button" class="btn btn-default" data-dismiss="modal" value="Fermer">
@@ -132,36 +143,43 @@
         <div id="modifierArticleModal" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form>
+                    <form id="formModifierArticle">
                         <div class="modal-header">						
                             <h4 class="modal-title">Modifier Article</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
                         <div class="modal-body">					
-                        <div class="form-group">
+                            <div class="form-group">
                                 <label>Nom</label>
-                                <input type="text" class="form-control" required>
+                                <input type="text" name="nomArticle" id="nomArt" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label>Description</label>
-                                <textarea class="form-control" required></textarea>
+                                <input type="text" name="descriptionArticle"  id="descriptionArt" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label>UrlPhoto</label>
-                                <input type="text" class="form-control" required>
+                                <input type="text" name="urlPhoto" id="urlPhotoArt" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label>Prix</label>
-                                <input class="form-control" required>
+                                <input type = "number" name="prix" id="prixArt" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label>Quantité</label>
-                                <input type = "number" class="form-control" required>
+                                <input type = "number" name="quantite" id="quantiteArt" class="form-control" required>
                             </div>
-                            <div class="form-group">
-                                <label>Id de la catégorie</label>
-                                <input type="number" class="form-control" required>
-                            </div>			
+                            <div class="dropdown">
+                                <button class="btn btn-info dropdown-toggle" type="button" id="modifyDropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Nom de la catégorie
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="modifyDropdownList">
+                                <?php foreach($data['categories'] as $indice => $value){
+                                ?>
+                                    <a class="dropdown-item" href="#" name="<?=$value['idCategorie']?>"><?=$value['nomCategorie']?></a>
+                                <?php } ?>
+                                </div>
+                            </div>     					
                         </div>
                         <div class="modal-footer">
                             <input type="button" class="btn btn-default" data-dismiss="modal" value="Fermer">
