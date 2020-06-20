@@ -1,5 +1,6 @@
 body {
     padding-top: 56px;
+    font-family: 'Varela Round', sans-serif;
 }
 
 button:focus {
@@ -20,4 +21,9 @@ button:focus {
 .btn-light:not(:disabled):not(.disabled):active,
 .show>.btn-light.dropdown-toggle {
   color: red;
+}
+
+.card-text{
+    text-overflow: ellipsis;
+    text-size-adjust: 20%;
 }

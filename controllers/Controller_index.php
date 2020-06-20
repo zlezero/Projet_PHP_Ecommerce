@@ -3,6 +3,7 @@
 require_once("Controller.php");
 require_once("models/class.ArticlesManager.php");
 require_once("models/class.CommandeManager.php");
+require_once("models/class.CategorieManager.php");
 require_once("models/class.ConfigArticles.php");
 
 class Controller_index extends Controller {
@@ -14,15 +15,18 @@ class Controller_index extends Controller {
 	public function action_index() {
 
 		$articlesManager = new ArticlesManager();
+		$categoriesManager = new CategorieManager();
 		$configOrder = new ConfigArticles();
 		$defaultValue = $configOrder->getDefaultOrder();
 		$articles = $articlesManager->getAllArticles($defaultValue,true);
+		$categories = $categoriesManager->getAllCategories();
 		if(empty($_SESSION["idCommande"])){
             $commandeManager=new CommandeManager();
             $_SESSION["idCommande"]= $commandeManager->addCommande()->getidCommande();
         }
 		$this->render('index',[
 			'articles' => $articles,
+			'categories' => $categories,
 			'typeAffichage'=> $defaultValue
 		]);
 	}

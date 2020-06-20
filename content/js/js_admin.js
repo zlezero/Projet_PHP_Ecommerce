@@ -19,30 +19,108 @@ $(document).ready( function() {
 
             $('#modalChooseDefaultOrder').modal('hide');
             
-        });
+        })
+    });
     
-    $('#formSupprimerArticle').submit(function(e) {
+    $('#supprimerArticleModal').on('show.bs.modal', function(e) { 
 
-        e.preventDefault();
-
-        const idArticle = $(this).data("id");
+        let id = $(e.relatedTarget).data('id');
         
-        $.get(
-            'index.php?controller=articles&action=deleteArticle',
-            {value:idArticle}
-        ).done(function(response) {
+        $('#formSupprimerArticle').submit(function(e) {
 
-            if(response !== false) {
-                $("#modalSuccessDeleteArticle").show();
-            } else {
-                $("#modalErrorDeleteArticle").show();
-            }
-
-            $('#formSupprimerArticle').modal('hide');
-    })
-
+            e.preventDefault();
+    
+            const idArticle = id;
+            
+            $.get(
+                'index.php?controller=articles&action=deleteArticle',
+                {value:idArticle}
+            ).done(function(response) {
+    
+                if(response !== false) {
+                    $("#modalSuccessDeleteArticle").show();
+                } else {
+                    $("#modalErrorDeleteArticle").show();
+                }
+    
+                $('#supprimerArticleModal').modal('hide');
+                
+            })
+        });
     });
 
+    $('#addDropdownList').find("a").click(function(){
+        $('#addDropdownMenuButton').html($(this).html()).append("    <span class='caret'></span>");
+        $idCategorie = $(this).attr('name');
+    });
+
+    $('#formAjouterArticle').submit(function(e){
+
+        e.preventDefault();  
+        $.ajax({
+            type: "POST",
+            url: 'index.php?controller=articles&action=addArticle',
+            cache:false,
+            data: $('#formAjouterArticle').serialize() + '&' + 'idCategorie=' + $idCategorie,
+            success: function(response){
+                $("#modalSuccessAddArticle").show();
+            },
+            error: function(response){
+                $("#modalErrorAddArticle").show();
+            }
+        })
+
+        $('#ajouterArticleModal').modal('hide');
+    })
+    
+    $('#modifyDropdownList').find("a").click(function(){
+        $('#modifyDropdownMenuButton').html($(this).html()).append("    <span class='caret'></span>");
+        $idCat = $(this).attr('name');
+    });
+
+    $('#modifierArticleModal').on('show.bs.modal', function(e){
+        
+        let idArt = $(e.relatedTarget).data('idart');
+        $.getJSON(
+            'index.php?controller=articles&action=fetchArticle',
+            {value:idArt}
+        ).done(function(response){
+            if(response != false){
+                $('#nomArt').val(response.nomArticle);
+                $('#descriptionArt').val(response.descriptionArticle);
+                $('#urlPhotoArt').val(response.urlPhoto);
+                $('#prixArt').val(response.prix);
+                $('#quantiteArt').val(response.quantite);
+                //préselectionner catégorie a partir de response.idCategorie
+
+                $('#formModifierArticle').submit(function(e){
+
+                    e.preventDefault();
+                    const idArti = idArt; 
+                    $.ajax({
+                        type: "POST",
+                        url: 'index.php?controller=articles&action=updateArticle',
+                        cache:false,
+                        data: $('#formModifierArticle').serialize() + '&' + 'idCategorie=' + $idCat + '&idArticle=' + idArti,
+                        success: function(response){
+                            $("#modalSuccessModifyArticle").show();
+                        },
+                        error: function(response){
+                            $("#modalErrorModifyArticle").show();
+                        }
+                    })
+            
+                })
+                
+            } else{
+                $message = "Erreur lors du préremplissage des champs";
+                $("#modalErrorModifyArticle").show(); 
+            }
+
+            $('#modifieArticleModal').modal('hide');
+        })
+
+    })
 
 
 });

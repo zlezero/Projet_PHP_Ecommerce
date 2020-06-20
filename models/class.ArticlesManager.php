@@ -81,7 +81,7 @@ class ArticlesManager{
         $req->bindValue(':urlPhoto',$urlPhoto);
         $req->bindValue(':prix',$prix);
         $req->bindValue(':quantite',$quantite);
-        $req->bindValue(':idCat',$categorie['idCategorie']);
+        $req->bindValue(':idCat',$categorie->getIdCategorie());
         $req->execute();
         return new Article(intVal($this->bdd->lastInsertId()));
     }
@@ -95,12 +95,12 @@ class ArticlesManager{
     public function updateArticle(Article $article){
         $req = $this->bdd->prepare('UPDATE article SET nomArticle = :nom, descriptionArticle = :descriptionArticle, urlPhoto = :urlPhoto, prix = :prix, quantite = :quantite, idCategorie = :idCat WHERE idArticle = :id');
         $req->bindValue(':id',$article->getIdArticle());
-        $req->bindValue(':nom',$article['nomArticle']);
-        $req->bindValue(':descriptionArticle',$article['descriptionArticle']);
-        $req->bindValue(':urlPhoto',$article['urlPhoto']);
-        $req->bindValue(':prix',$article['prix']);
-        $req->bindValue(':quantite',$article['quantite']);
-        $req->bindValue(':idCat',$article['categorie']['idCategorie']);
+        $req->bindValue(':nom',$article->getNomArticle());
+        $req->bindValue(':descriptionArticle',$article->getDescriptionArticle());
+        $req->bindValue(':urlPhoto',$article->getUrlPhotoArticle());
+        $req->bindValue(':prix',$article->getPrixArticle());
+        $req->bindValue(':quantite',$article->getQuantiteArticle());
+        $req->bindValue(':idCat',$article->getCategorieArticle()->getIdCategorie());
         $req->execute();
     }
 

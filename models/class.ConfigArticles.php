@@ -16,7 +16,7 @@ class ConfigArticles{
             $req->execute();
             $data = $req->fetch();
 
-            if(count($data)>0){
+            if($data !== false){
                 $this->defaultOrder = $data['defaultOrder'];
             } else{
                 $this->addDefaultOrder(Config::getInstance('defaultOrder'));

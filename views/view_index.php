@@ -4,11 +4,12 @@
 
             <div class="col-lg-3">
 
-                <h1 class="my-4">Shop Name</h1>
+                <h1 class="my-4">Catégories</h1>
                 <div class="list-group">
-                    <a href="#" class="list-group-item">Category 1</a>
-                    <a href="#" class="list-group-item">Category 2</a>
-                    <a href="#" class="list-group-item">Category 3</a>
+                    <?php foreach($data['categories'] as $indice => $value){
+                    ?>
+                    <a href="#" class="list-group-item"><?=$value['nomCategorie']?></a>
+                    <?php } ?>
                 </div>
 
             </div>
@@ -68,7 +69,7 @@
                                     <h4 class="card-title">
                                         <a href="#"><?=$value['nomArticle']?></a>
                                     </h4>
-                                    <h5><?=$value['prix']?></h5>
+                                    <h5><?=$value['prix']?>‎€</h5>
                                     <p class="card-text"><?=$value['descriptionArticle']?></p>
                                 </div>
                                 <div class="card-footer d-flex justify-content-between align-items-center">

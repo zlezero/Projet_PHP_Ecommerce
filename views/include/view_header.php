@@ -57,10 +57,6 @@
                                 <span class="sr-only">(current)</span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Gestion des commandes</a>
-                        </li>
-
                     </ul>
 
                     <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
@@ -87,7 +83,7 @@
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
             <div class="container">
 
-                <a class="navbar-brand" href="#">TITRE DE NOTRE SITE</a>
+                <a class="navbar-brand" href="#">VintAIR</a>
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -99,15 +95,6 @@
                             <a class="nav-link" href="#">Accueil
                                 <span class="sr-only">(current)</span>
                             </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">About</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Services</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Contacts</a>
                         </li>
                     </ul>
                     <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
