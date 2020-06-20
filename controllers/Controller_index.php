@@ -12,7 +12,7 @@ class Controller_index extends Controller {
 	public function action_index() {
 
 		$articlesManager = new ArticlesManager();
-		$articles = $articlesManager->getAllArticles("defaultvaLue",true,"defaultvaLue",false);
+		$articles = $articlesManager->getAllArticles("defaultvaLue",true,"defaultvaLue",false,1,10000);
 		$this->render('index',[
 			'articles' => $articles
 		]);
@@ -29,19 +29,17 @@ class Controller_index extends Controller {
 
 			if($typeAffichage){
 				if($category){
-					$articles = $articlesManager->getAllArticles($typeAffichage,true,$category,true);
+					$articles = $articlesManager->getAllArticles($typeAffichage,true,$category,true,$min,$max);
 				} else{
-					$articles = $articlesManager->getAllArticles($typeAffichage,true,"defaultvaLue",false);
+					$articles = $articlesManager->getAllArticles($typeAffichage,true,"defaultvaLue",false,$min,$max);
 				}
 			} else if($category){
-					$articles = $articlesManager->getAllArticles("defaultvaLue",true,$category,true);
+					$articles = $articlesManager->getAllArticles("defaultvaLue",true,$category,true,$min,$max);
 				  }else{
-					$articles = $articlesManager->getAllArticles("defaultvaLue",true,"defaultvaLue",false);
+					$articles = $articlesManager->getAllArticles("defaultvaLue",true,"defaultvaLue",false,$min,$max);
 
 				}
-				if($min){
-					$articles = $articlesManager->getAllArticlesMinMax($min,$max);
-				}
+				
 				$this->render('index', [
 				'err' => $erreur ?? false,
 				'articles' => $articles
