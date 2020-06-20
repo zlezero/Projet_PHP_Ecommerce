@@ -71,7 +71,7 @@ $(document).ready( function() {
         })
 
         $('#ajouterArticleModal').modal('hide');
-    })
+    });
     
     $('#modifyDropdownList').find("a").click(function(){
         $('#modifyDropdownMenuButton').html($(this).html()).append("    <span class='caret'></span>");
@@ -118,9 +118,10 @@ $(document).ready( function() {
             }
 
             $('#modifieArticleModal').modal('hide');
-        })
+            
+        });
 
-    })
+    });
 
 
 });

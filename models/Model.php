@@ -1,9 +1,10 @@
 <?php
 
-session_start();
-
 require_once("class.Config.php");
 require_once('Utils/fonctions.php');
+require_once("models/class.SessionManager.php");
+
+session_start();
 
 class Model
 {

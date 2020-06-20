@@ -12,26 +12,30 @@ class Controller_articles extends Controller {
     }
 
     public function action_admin(){
-        $articlesManager = new ArticlesManager();
-        $categoriesManager = new CategorieManager();
-		$configOrder = new ConfigArticles();
-		$defaultValue = $configOrder->getDefaultOrder();
-        $allArticles = $articlesManager->getArticlesInfos($defaultValue);
-        $categories = $categoriesManager->getAllCategories();
-		$this->render('admin',[
-            'articles' => $allArticles,
-            'categories'=> $categories,
-			'typeAffichage'=> $defaultValue
-		]);
+        if ($this->checkAdmin()) { 
+            $articlesManager = new ArticlesManager();
+            $categoriesManager = new CategorieManager();
+            $configOrder = new ConfigArticles();
+            $defaultValue = $configOrder->getDefaultOrder();
+            $allArticles = $articlesManager->getArticlesInfos($defaultValue);
+            $categories = $categoriesManager->getAllCategories();
+            $this->render('admin',[
+                'articles' => $allArticles,
+                'categories'=> $categories,
+                'typeAffichage'=> $defaultValue
+            ]);
+        }
     }
 
     public function action_defineDefaultOrder(){
         
-        #TO DO Check si admin est connecté
-        $defaultOrd = $_GET['value'] ?? false;
-        if($defaultOrd){
-            $config = new ConfigArticles();
-            $config->updateDefaultOrder($defaultOrd);
+        if ($this->checkAdmin()) {
+            $defaultOrd = $_GET['value'] ?? false;
+            if($defaultOrd){
+                $config = new ConfigArticles();
+                $config->updateDefaultOrder($defaultOrd);
+            }
+
         }
         echo json_encode($defaultOrd);
     }
@@ -134,6 +138,16 @@ class Controller_articles extends Controller {
             }
         }
         echo json_encode($message);
+    }
+
+    private function checkAdmin() {
+
+        if ($this->getSessionManager()->isAdmin()) {
+            return true;
+        } else {
+            redirect("index.php");
+        }
+
     }
 
 }

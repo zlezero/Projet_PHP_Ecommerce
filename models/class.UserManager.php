@@ -87,7 +87,7 @@ class UserManager {
 
         $data = $req->fetch();
 
-        return count($data) > 0;
+        return $data !== false;
 
     }
 

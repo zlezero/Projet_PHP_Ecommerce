@@ -1,6 +1,7 @@
 <?php
 
 require_once("Model.php");
+require_once("class.User.php");
 
 class SessionManager {
     
@@ -24,11 +25,13 @@ class SessionManager {
 
         $data = $req->fetch();
 
-        if (count($data) > 0) {
+        if ($data !== false) {
             
             if (password_verify($mdp, $data["mdp"])) {
+                
                 $this->_User = new User($data["idUtilisateur"]);
                 return true;
+
             } else {
                 return false;
             }
@@ -43,6 +46,10 @@ class SessionManager {
         return !is_null($this->_User);
     }
 
+    public function isAdmin() : bool {
+        return $this->isConnected() && $this->_User->getRole()->getNomRole() == "Administrateur";
+    }
+
     public function disconnect() : bool {
 
         if ($this->isConnected()) {
@@ -52,6 +59,10 @@ class SessionManager {
             return false;
         }
 
+    }
+
+    public function getUser() : User {
+        return $this->_User;
     }
 
 }

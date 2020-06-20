@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
     <link href="content/css/style_global.css" rel="stylesheet">
-    
+    <script src="content/js/js_global.js"></script>
 
     <?php 
 
@@ -106,25 +106,44 @@
 
                         <li class="nav-item order-2 order-md-1"><a href="#" class="nav-link" title="settings"><i class="fa fa-cog fa-fw fa-lg"></i></a></li>
                         <li class="dropdown order-1">
-                            <button type="button" id="dropdownMenu1" data-toggle="dropdown" class="btn btn-outline-secondary dropdown-toggle">Se connecter <span class="caret"></span></button>
-                            <ul class="dropdown-menu dropdown-menu-right mt-2">
-                            <li class="px-3 py-2">
-                                <form class="form" role="form">
+
+
+                            <?php if ($this->getSessionManager()->isConnected()) { ?>
+
+                                <button type="button" id="dropdownMenu1" data-toggle="dropdown" class="btn btn-outline-secondary dropdown-toggle">Mon compte <span class="caret"></span></button>
+                                <ul class="dropdown-menu dropdown-menu-right mt-2">
+                                    <li class="px-3 py-2">
+                                        <?php echo("Bonjour ". $this->getSessionManager()->getUser()->getPrenom() . " " . $this->getSessionManager()->getUser()->getNom()); ?>
                                         <div class="form-group">
-                                            <input id="emailInput" placeholder="Email" class="form-control form-control-sm" type="text" required="">
+                                            <button type="submit" class="btn btn-primary btn-block" id="disconnectButton">Se déconnecter</button>
                                         </div>
-                                        <div class="form-group">
-                                            <input id="passwordInput" placeholder="Password" class="form-control form-control-sm" type="text" required="">
-                                        </div>
-                                        <div class="form-group">
-                                            <button type="submit" class="btn btn-primary btn-block">Se connecter</button>
-                                        </div>
-                                        <div class="form-group text-center">
-                                            <small><a href="#" data-toggle="modal" data-target="#modalPassword">Mot de passe oublié ?</a></small>
-                                        </div>
-                                    </form>
-                                </li>
-                            </ul>
+                                    </li>
+                                </ul>
+
+                            <?php } else { ?>
+
+                                <button type="button" id="dropdownMenu1" data-toggle="dropdown" class="btn btn-outline-secondary dropdown-toggle">Se connecter <span class="caret"></span></button>
+                                <ul class="dropdown-menu dropdown-menu-right mt-2">
+                                    <li class="px-3 py-2">
+                                        <form class="form" role="form" id="formConnexion">
+                                            <div class="form-group">
+                                                <input id="emailInputConnexion" placeholder="Email" class="form-control form-control-sm" type="email" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <input id="passwordInputConnexion" placeholder="Mot de passe" class="form-control form-control-sm" type="password" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-primary btn-block">Se connecter</button>
+                                            </div>
+                                            <div class="form-group text-center">
+                                                <small><a href="#" data-toggle="modal" data-target="#modalPassword">Pas de compte ? S'inscrire</a></small>
+                                            </div>
+                                        </form>
+                                    </li>
+                                </ul>
+
+                            <?php } ?>
+
                         </li>
 
                     </ul>

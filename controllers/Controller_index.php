@@ -31,7 +31,7 @@ class Controller_index extends Controller {
 		]);
 	}
 
-	public function action_orderBy(){
+	public function action_orderBy() {
 
 		$articlesManager = new ArticlesManager();
 		$configOrder = new ConfigArticles();

@@ -7,22 +7,20 @@ class CB {
     private DateTime $_dateExpirationCB;
     private int $_cryptoCB;
 
-    private PDO $bdd;
-
     public function __construct(int $idCB) {
 
         try {
             
-            $this->bdd = Model::getDatabase();
+            $bdd = Model::getDatabase();
         
-            $req = $this->bdd->prepare("SELECT * FROM cb WHERE idCB = :id");
+            $req = $bdd->prepare("SELECT * FROM cb WHERE idCB = :id");
             $req->bindParam('id', $idCB);
     
             $req->execute();
             
             $data = $req->fetch();
     
-            if (count($data) > 0) {        
+            if ($data !== false) {
                 $this->_idCB = $idCB;
                 $this->_numCB = $data["numCB"];
                 $this->_dateExpirationCB = new DateTime($data["dateExpirationCB"]);

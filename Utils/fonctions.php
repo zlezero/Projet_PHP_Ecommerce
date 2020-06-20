@@ -30,4 +30,21 @@ function afficherErreur(string $message, bool $hide, string $id) { //Affiche une
 <?php
 }
 
+function redirect($url) {
+    header('Location: '.$url);
+    exit;
+}
+
+function checkParameter(array $parameters) : bool {
+
+    foreach($parameters as $parametre) {
+        if (!isset($_POST[$parametre]) || empty($_POST[$parametre])) {
+            return false;
+        }
+    }
+
+    return true;
+
+}
+
 ?>
