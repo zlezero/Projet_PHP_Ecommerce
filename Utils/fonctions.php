@@ -30,9 +30,16 @@ function afficherErreur(string $message, bool $hide, string $id) { //Affiche une
 <?php
 }
 
-function redirect($url) {
-    header('Location: '.$url);
-    exit;
+function redirect(string $url, string $arg = null) {
+
+    if (is_null($arg)) {
+        header('Location: '. $url);
+        exit;
+    } else {
+        header('Location: '. $url & "?=");
+        exit;
+    }
+
 }
 
 function checkParameter(array $parameters) : bool {
@@ -45,6 +52,32 @@ function checkParameter(array $parameters) : bool {
 
     return true;
 
+}
+
+function getErrorMessage(string $hash) {
+
+    switch ($hash) {
+        case sha1("loginIncorrect"):
+            return "<strong>Identifiant</strong> ou <strong>mot de passe</strong> incorrect !";
+        case sha1("inscriptionParametresInvalides"):
+            return "Les arguments envoyés sont invalides.";
+        case sha1("inscriptionErreurSurvenue"):
+            return "Une erreur est survenue lors de l'inscription";
+        case sha1("inscriptionMdpNonCorrespondants"):
+            return "Les deux mots de passe ne correspondent pas";
+        default:
+            return "Message inconnu";
+    }
+
+}
+
+function getSuccessMessage(string $hash) {
+    switch ($hash) {
+        case sha1("loginIncorrect"):
+            return "<strong>Identifiant</strong> ou <strong>mot de passe</strong> incorrect !";
+        default:
+            return "Message inconnu";
+    }
 }
 
 ?>
