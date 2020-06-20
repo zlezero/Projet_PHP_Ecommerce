@@ -15,7 +15,6 @@ class ConfigArticles{
             $req = $this->bdd->prepare('SELECT defaultOrder FROM config');
             $req->execute();
             $data = $req->fetch();
-
             if($data !== false){
                 $this->defaultOrder = $data['defaultOrder'];
             } else{

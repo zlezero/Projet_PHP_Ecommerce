@@ -13,22 +13,20 @@ class User {
     private Role $_role;
     private CB $_CB;
 
-    private PDO $bdd;
-
     public function __construct(int $idUser) {
 
         try {
         
-            $this->bdd = Model::getDatabase();
+            $bdd = Model::getDatabase();
         
-            $req = $this->bdd->prepare("SELECT * FROM utilisateur WHERE idUtilisateur = :id");
+            $req = $bdd->prepare("SELECT * FROM utilisateur WHERE idUtilisateur = :id");
             $req->bindParam('id', $idUser);
     
             $req->execute();
             
             $data = $req->fetch();
     
-            if (count($data) > 0) {
+            if ($data !== false) {
 
                 $this->_idUtilisateur = $idUser;
                 $this->_nom = $data["nom"];

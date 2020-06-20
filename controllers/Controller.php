@@ -77,4 +77,14 @@ abstract class Controller
         $this->render("message", $data);
     }
 
+    protected function getSessionManager() : SessionManager {
+        
+        if (isset($_SESSION['sessionManager'])) {
+            return $_SESSION['sessionManager'];
+        } else {
+            return null;
+        }
+
+    }
+
 }

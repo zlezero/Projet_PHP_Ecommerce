@@ -7,22 +7,20 @@ class Role {
     private int $_idRole;
     private string $_nomRole;
 
-    private PDO $bdd;
-
     public function __construct(int $idRole) {
 
         try {
         
-            $this->bdd = Model::getDatabase();
+            $bdd = Model::getDatabase();
         
-            $req = $this->bdd->prepare("SELECT * FROM role WHERE idRole = :id");
+            $req = $bdd->prepare("SELECT * FROM role WHERE idRole = :id");
             $req->bindParam('id', $idRole);
     
             $req->execute();
             
             $data = $req->fetch();
     
-            if (count($data) > 0) {
+            if ($data !== false) {
                 $this->_idRole = $idRole;
                 $this->_nomRole = $data["nomRole"];
             } else {
