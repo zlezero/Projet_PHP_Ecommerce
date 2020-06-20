@@ -14,76 +14,100 @@ class Controller_index extends Controller {
 
 	public function action_index() {
 
-		$articlesManager = new ArticlesManager();
-		$categoriesManager = new CategorieManager();
-		$configOrder = new ConfigArticles();
-		$defaultValue = $configOrder->getDefaultOrder();
-		$defaultCategorie= -1;
-		$articles = $articlesManager->getAllArticles($defaultValue,true, $defaultCategorie,false, 1, 10000);
-		$articles = $articlesManager->getAllArticlesAvecPagination();
-		$plink = $articlesManager->prevlink;
-		$nlink = $articlesManager->nextlink;
-		$page  = $articlesManager->page;
-		$pages = $articlesManager->pages;
-		$categories = $categoriesManager->getAllCategories();
+		if (!$this->getSessionManager()->isAdmin()) {
 
-		if(empty($_SESSION["idCommande"])){
-            $commandeManager=new CommandeManager();
-            $_SESSION["idCommande"]= $commandeManager->addCommande()->getidCommande();
-		}
+			$articlesManager = new ArticlesManager();
+			$categoriesManager = new CategorieManager();
+			$configOrder = new ConfigArticles();
+			$defaultValue = $configOrder->getDefaultOrder();
+			$defaultCategorie= -1;
+			$articles = $articlesManager->getAllArticles($defaultValue,true, $defaultValue,false, 1, 10000);
+			$articles = $articlesManager->getAllArticlesAvecPagination();
+			$plink = $articlesManager->prevlink;
+			$nlink = $articlesManager->nextlink;
+			$page  = $articlesManager->page;
+			$pages = $articlesManager->pages;
+			$categories = $categoriesManager->getAllCategories();
 		
-		$this->render('index',[
-			'articles' => $articles,
-			'prevlink' => $plink,
-			'nextlink' => $nlink,
-			'page'     => $page,
-			'pages'    => $pages,
-			'categories' => $categories,
-			'typeAffichage'=> $defaultValue
-		]);
+				if(empty($_SESSION["idCommande"])){
+					$commandeManager=new CommandeManager();
+					$_SESSION["idCommande"]= $commandeManager->addCommande()->getidCommande();
+				}
+				
+				$this->render('index',[
+					'articles' => $articles,
+					'prevlink' => $plink,
+					'nextlink' => $nlink,
+					'page'     => $page,
+					'pages'    => $pages,
+					'categories' => $categories,
+					'typeAffichage'=> $defaultValue
+				]);
+
+		} else {
+			redirect("index.php?controller=articles");
+		}
+
 	}
+
 
 	public function action_orderBy() {
 
-		$articlesManager = new ArticlesManager();
-		$configOrder = new ConfigArticles();
-		$categoriesManager = new CategorieManager();
+		if (!$this->getSessionManager()->isAdmin()) {
 
-		$defaultValue = $configOrder->getDefaultOrder();
-		$defaultCategorie = -1;
-		$categories = $categoriesManager->getAllCategories();
-
-		if(!empty($_POST)){
+			$articlesManager = new ArticlesManager();
+			$configOrder = new ConfigArticles();
+			$categoriesManager = new CategorieManager();
 
 			$typeAffichage = $_POST['ordreSelect'] ?? false;
 			$category = $_POST['idCategory'] ?? false;
+			$defaultValue = $configOrder->getDefaultOrder();
+			$defaultCategorie = -1;
+			$categories = $categoriesManager->getAllCategories();
 
-			$min = $_POST['min'] ?? false;
-			$max = $_POST['max'] ?? false;
+			if(!empty($_POST)){
 
 			if(is_numeric($category)){
 				$category = intval($category);
 			}else{
 				$category = -1;
 			}
-
-			if (is_numeric($min))
-				$min = intval($min);
-			else
-				$min = 0;
 			
+			$typeAffichage = $_POST['ordreSelect'] ?? false;
+			$category = $_POST['category'] ?? false;
 
-			if (is_numeric($max))
-				$max = intval($max);
-			else
-				$max = 10000000;
+			$min = $_POST['min'] ?? false;
+			$max = $_POST['max'] ?? false;
 
 			if($typeAffichage) {
 
 				if($category>0) {
 					$articles = $articlesManager->getAllArticles($typeAffichage, true, $category, true, $min,$max);
+				if (is_numeric($min))
+					$min = intval($min);
+				else
+					$min = 0;
+				
+
+				if (is_numeric($max))
+					$max = intval($max);
+				else
+					$max = 10000000;
+
+				if($typeAffichage) {
+					
+					$articles = $articlesManager->getAllArticles($typeAffichage, true, $defaultCategorie, false, $min, $max);
+
+					if($category) {
+						$articles = $articlesManager->getAllArticles($typeAffichage, true, $category, true, $min,$max);
+					} else {
+						$articles = $articlesManager->getAllArticles($typeAffichage, true, $defaultCategorie, false, $min,$max);
+					}
+					
+				} else if($category) {
+					$articles = $articlesManager->getAllArticles($defaultValue, true, $category, true,$min,$max);
 				} else {
-					$articles = $articlesManager->getAllArticles($typeAffichage, true, $defaultCategorie, false, $min,$max);
+					$articles = $articlesManager->getAllArticles($defaultValue, true, $defaultCategorie, false, $min, $max);
 				}
 				
 			} else if($category>0) {
@@ -95,6 +119,7 @@ class Controller_index extends Controller {
 		} else{
 			$articles = $articlesManager->getAllArticles($defaultValue, true, $defaultCategorie, false, 0, 10000000);
 		}
+
 
 		$plink = $articlesManager->prevlink;
 		$nlink = $articlesManager->nextlink;
@@ -111,6 +136,12 @@ class Controller_index extends Controller {
 			'categories' => $categories,
 			'typeAffichage' => $typeAffichage ?? $defaultValue
 		]);
+
+		} else {
+			redirect("index.php?controller=articles");
+		}
 			
+	}
+
 	}
 }

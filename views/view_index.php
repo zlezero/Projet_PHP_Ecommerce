@@ -90,6 +90,9 @@
                     </a>
                 </div>
 
+                <?php if (isset($_SESSION["erreur"])) { afficherErreur(getErrorMessage($_SESSION["erreur"]), false, "affichageErreur"); } ?>
+                <?php if (isset($_SESSION["succes"])) { afficherSucces(getSuccessMessage($_SESSION["succes"]), false, "affichageSucces"); } ?>
+
                 <form action ="?controller=index&action=orderBy" method="POST" class="form-inline">
                     <div class="form-group">
                         <label for="Ordonnancement" class="mr-3"> Ordonner par:</label>

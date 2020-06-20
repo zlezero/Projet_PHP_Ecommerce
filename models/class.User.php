@@ -11,7 +11,7 @@ class User {
     private string $_prenom;
     private string $_email;
     private Role $_role;
-    private CB $_CB;
+    private ?CB $_CB;
 
     public function __construct(int $idUser) {
 
@@ -33,7 +33,12 @@ class User {
                 $this->_prenom = $data["prenom"];
                 $this->_email = $data["email"];
                 $this->_role = new Role($data["idRole"]);
-                $this->_idCB = new CB($data["idCB"]);
+
+                if (isset($data["idCB"])) {
+                    $this->_idCB = new CB($data["idCB"]);
+                } else {
+                    $this->_idCB = null;
+                }
         
             } else {
                 throw new Exception("Aucun utilisateur n'existe avec cet identifiant");

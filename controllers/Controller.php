@@ -17,6 +17,10 @@ abstract class Controller
     public function __construct()
     {
 
+        if (!isset($_SESSION["sessionManager"])) {
+            $_SESSION["sessionManager"] = new SessionManager();
+        }
+
         //On détermine s'il existe dans l'url un paramètre action correspondant à une action du contrôleur
         if (isset($_GET['action']) and method_exists($this, "action_" . $_GET["action"])) {
             //Si c'est le cas, on appelle cette action
@@ -37,10 +41,6 @@ abstract class Controller
     protected function render($vue, $data = [])
     {
 
-        if (!isset($_SESSION["sessionManager"])) {
-            $_SESSION["sessionManager"] = new SessionManager();
-        }
-
         //On extrait les données à afficher
         extract($data);
 
@@ -57,7 +57,13 @@ abstract class Controller
             $this->action_error("La vue n'existe pas !");
         }
 
-		require_once('views/include/view_footer.php');
+        require_once('views/include/view_footer.php');
+        
+        if (isset($_SESSION['erreur']))
+            unset($_SESSION['erreur']);
+
+        if (isset($_SESSION['succes']))
+            unset($_SESSION['succes']);
 
         die(); // Pour terminer le script
     }

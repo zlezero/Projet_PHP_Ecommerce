@@ -7,11 +7,12 @@
                 <div class="col-md-6">
                     <h1>S'inscrire</h1>
                     <hr>
+                    <?php if (isset($_SESSION["erreur"])) { afficherErreur(getErrorMessage($_SESSION["erreur"]), false, "affichageErreur"); } ?>
                 </div>
 
             </div>
 
-            <form class="form-group" action="index.php?controlleur=inscription&action=register" method="post">
+            <form class="form-group" action="index.php?controller=inscription&action=register" method="post">
 
                 <div class="row">
 
