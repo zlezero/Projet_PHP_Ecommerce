@@ -38,7 +38,7 @@
 
 <body>
 
-    <?php if ($vue === "admin"){
+    <?php if ($vue === "admin") {
         ?>
         <!-- Navigation -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
