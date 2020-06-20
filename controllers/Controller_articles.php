@@ -60,6 +60,7 @@ class Controller_articles extends Controller {
 
         #TO DO Check si admin est connecté
         if(!empty($_POST)){
+            
             $articlesOfManager = new ArticlesManager();
 
             $articleName = $_POST['nomArticle'] ?? false;
@@ -117,7 +118,7 @@ class Controller_articles extends Controller {
 
     }
 
-	public function action_deleteArticle(){
+	public function action_deleteArticle() {
 
         #TO DO Check si admin est connecté
         if(!empty($_GET)){
@@ -142,11 +143,13 @@ class Controller_articles extends Controller {
 
     private function checkAdmin() {
 
-        if ($this->getSessionManager()->isAdmin()) {
-            return true;
-        } else {
-            redirect("index.php");
+        if (isset($_SESSION['sessionManager'])) {
+            if ($this->getSessionManager()->isAdmin()) {
+                return true;
+            }
         }
+
+        redirect("index.php");
 
     }
 

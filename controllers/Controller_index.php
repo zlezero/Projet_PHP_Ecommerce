@@ -20,10 +20,12 @@ class Controller_index extends Controller {
 		$defaultValue = $configOrder->getDefaultOrder();
 		$articles = $articlesManager->getAllArticles($defaultValue,true);
 		$categories = $categoriesManager->getAllCategories();
+
 		if(empty($_SESSION["idCommande"])){
             $commandeManager=new CommandeManager();
             $_SESSION["idCommande"]= $commandeManager->addCommande()->getidCommande();
-        }
+		}
+		
 		$this->render('index',[
 			'articles' => $articles,
 			'categories' => $categories,
@@ -35,7 +37,10 @@ class Controller_index extends Controller {
 
 		$articlesManager = new ArticlesManager();
 		$configOrder = new ConfigArticles();
+		$categoriesManager = new CategorieManager();
+
 		$defaultValue = $configOrder->getDefaultOrder();
+		$categories = $categoriesManager->getAllCategories();
 
 		if(!empty($_POST)){
 
@@ -53,6 +58,7 @@ class Controller_index extends Controller {
 		$this->render('index', [
 			'err' => $erreur ?? false,
 			'articles' => $articles,
+			'categories' => $categories,
 			'typeAffichage' => $typeAffichage ?? $defaultValue
         ]);
 	}
