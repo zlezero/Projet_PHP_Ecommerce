@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Shop Homepage - Start Bootstrap Template</title>
+    <title>VintAIR</title>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
@@ -77,13 +77,13 @@
 
         </nav>
         <?php
-    }else{
+    } else {
         ?>
         <!-- Navigation -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
             <div class="container">
 
-                <a class="navbar-brand" href="#">VintAIR</a>
+                <a class="navbar-brand" href="index.php">VintAIR</a>
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -92,7 +92,7 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="nav navbar-nav">
                         <li class="nav-item active">
-                            <a class="nav-link" href="#">Accueil
+                            <a class="nav-link" href="index.php">Accueil
                                 <span class="sr-only">(current)</span>
                             </a>
                         </li>
@@ -151,26 +151,6 @@
 
             </div>
 
-            <div id="modalPassword" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3>Mot de passe oublié</h3>
-                            <button type="button" class="close font-weight-light" data-dismiss="modal" aria-hidden="true">×</button>
-                        </div>
-                        <div class="modal-body">
-                            <p>Réinitialiser votre mot de passe..</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button class="btn" data-dismiss="modal" aria-hidden="true">Fermer</button>
-                            <button class="btn btn-primary">Sauvegarder les changements</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </nav>
         <?php
     }
-
-    

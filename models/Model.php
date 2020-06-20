@@ -3,6 +3,8 @@
 require_once("class.Config.php");
 require_once('Utils/fonctions.php');
 require_once("models/class.SessionManager.php");
+require_once("models/class.Role.php");
+require_once("models/class.CB.php");
 
 session_start();
 

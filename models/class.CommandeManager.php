@@ -32,19 +32,19 @@ class CommandeManager {
     }
 
     public function addCommande() {
-            $sql = "INSERT INTO Commande(idStatutCommande,dateCommande) VALUES(1,SYSDATE)";
+        $sql = "INSERT INTO Commande(idStatutCommande, dateCommande) VALUES(1, SYSDATE())";
 
-            $req = $this->bdd->prepare($sql);
+        $req = $this->bdd->prepare($sql);
 
-            $req->execute();
-            $commandeID = (intVal($this->bdd->lastInsertId()));
-            var_dump($commandeID);
-            return new Commande($commandeID);
+        $req->execute();
+        $commandeID = (intVal($this->bdd->lastInsertId()));
+        
+        return new Commande($commandeID);
     }
 
     public function updateStatutCommande(Commande $commande) {
 
-        $sql = "UPDATE Commande SET idStatutCommande = :idStatutCommande,dateCommande = SYSDATE WHERE idCommande = :idCommande";
+        $sql = "UPDATE Commande SET idStatutCommande = :idStatutCommande, dateCommande = SYSDATE() WHERE idCommande = :idCommande";
 
         $req = $this->bdd->prepare($sql);
 
