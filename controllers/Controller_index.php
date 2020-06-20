@@ -18,7 +18,7 @@ class Controller_index extends Controller {
 		$categoriesManager = new CategorieManager();
 		$configOrder = new ConfigArticles();
 		$defaultValue = $configOrder->getDefaultOrder();
-		$articles = $articlesManager->getAllArticles($defaultValue,true, $defaultValue,false);
+		$articles = $articlesManager->getAllArticles($defaultValue,true, $defaultValue,false, 1, 10000);
 		$categories = $categoriesManager->getAllCategories();
 
 		if(empty($_SESSION["idCommande"])){
@@ -51,18 +51,18 @@ class Controller_index extends Controller {
 
 			if($typeAffichage) {
 				
-				$articles = $articlesManager->getAllArticles($typeAffichage, true, $defaultValue, false);
+				$articles = $articlesManager->getAllArticles($typeAffichage, true, $defaultValue, false, $min,$max);
 
 				if($category) {
-					$articles = $articlesManager->getAllArticles($typeAffichage, true, $category, true);
+					$articles = $articlesManager->getAllArticles($typeAffichage, true, $category, true, $min,$max);
 				} else {
-					$articles = $articlesManager->getAllArticles($typeAffichage, true, $defaultValue, false);
+					$articles = $articlesManager->getAllArticles($typeAffichage, true, $defaultValue, false, $min,$max);
 				}
 				
 			} else if($category) {
-				$articles = $articlesManager->getAllArticles($defaultValue, true, $category,true);
+				$articles = $articlesManager->getAllArticles($defaultValue, true, $category,true,$min,$max);
 			} else {
-				$articles = $articlesManager->getAllArticles($defaultValue, true, $defaultValue,false);
+				$articles = $articlesManager->getAllArticles($defaultValue, true, $defaultValue,false,$min,$max);
 			}
 
 			if($min) {
@@ -70,7 +70,7 @@ class Controller_index extends Controller {
 			}
 
 		} else{
-			$articles = $articlesManager->getAllArticles($defaultValue, true, $defaultValue, false);	
+			$articles = $articlesManager->getAllArticles($defaultValue, true, $defaultValue, false, $min, $max);	
 		}
 
 		$this->render('index', [

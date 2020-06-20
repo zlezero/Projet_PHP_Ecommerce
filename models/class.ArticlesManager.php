@@ -11,29 +11,16 @@ class ArticlesManager{
         $this->bdd = Model::getDatabase();
     }
 
-    public function getAllArticles(string $typeAffichage, bool $afficherQuantitePositive, $categorie, $parCategorieUniquement) {
+    public function getAllArticles(string $typeAffichage,bool $afficherQuantitePositive,$categorie,$parCategorieUniquement,$min,$max){
         if($afficherQuantitePositive){
             $sql = "SELECT * FROM article WHERE quantite > 0";
         }else{
             $sql = "SELECT * FROM article";
         }
-
         if($parCategorieUniquement)
-
-
-
-        {
- 
- 
- 
+        { 
             $sql .= " and idCategorie =";
- 
- 
- 
         }
- 
- 
- 
         switch ($categorie) {
             case "1":
                 $sql .= "1";
@@ -58,6 +45,9 @@ class ArticlesManager{
             case "prixDecroissant":
                 $sql .= " ORDER BY prix DESC";
                 break;
+        }
+        if($min && $max){
+                    $sql.= " and (prix between ".$min." and ".$max.")";
         }
         $req = $this->bdd->prepare($sql);
         $req->execute();
@@ -92,13 +82,13 @@ class ArticlesManager{
         return $resultat;
     }
 
-    public function getAllArticlesMinMax(int $min,int $max){
+    /*public function getAllArticlesMinMax(int $min,int $max){
         $sql = "SELECT * FROM article WHERE prix > ? OR prix < ?";
         $req = $this->bdd->prepare($sql);
         $req->execute(array($min,$max));
         return $req->fetchAll();
-        var_dump($req->fetchAll());
-    }
+       // var_dump($req->fetchAll());
+    }*/
     public function getArticle(int $id){
         $req = $this->bdd->prepare('SELECT * FROM article WHERE idArticle = :id');
         $req->bindValue(':id',$id);
