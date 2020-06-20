@@ -70,7 +70,7 @@
                                         <a href="#"><?=$value['nomArticle']?></a>
                                     </h4>
                                     <h5><?=$value['prix']?>‎€</h5>
-                                    <p class="card-text"><?=$value['descriptionArticle']?></p>
+                                    <p class="card-text overflow-auto"><?=$value['descriptionArticle']?></p>
                                 </div>
                                 <div class="card-footer d-flex justify-content-between align-items-center">
                                     <button type="button" class="btn btn-light rounded-circle" data-toggle="button" aria-pressed="false" autocomplete="off">

@@ -77,6 +77,19 @@ class PanierManager {
         return $data!=false;
     }
 
+    public function checkIfArticleDansPanier(int $idArticle) : bool{
+        $sql = "SELECT P.idArticle FROM panier AS P, commande AS C where P.idArticle = :givenId AND P.idCommande = C.idCommande AND C.idStatutCommande=1;";
+
+        $req = $this->bdd->prepare($sql);
+
+        $req->bindValue('givenId',$idArticle);
+        $req->execute();
+
+        $data = $req->fetch();
+
+        return $data!==false;
+    }
+
 }
 
 

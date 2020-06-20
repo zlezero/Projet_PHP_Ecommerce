@@ -4,6 +4,7 @@ require_once("Controller.php");
 require_once("models/class.ConfigArticles.php");
 require_once("models/class.ArticlesManager.php");
 require_once("models/class.CategorieManager.php");
+require_once("models/class.PanierManager.php");
 
 class Controller_articles extends Controller {
 
@@ -166,9 +167,13 @@ class Controller_articles extends Controller {
     
                 if($idArticle){
                     if($articlesOfManager->checkArticleExists($idArticle)){
-                        #TO DO check if article not in commande
-                        $articlesOfManager->deleteArticle($idArticle);
-                        $message= "L'article a bien été supprimé.";
+                        $panierManager = new PanierManager();
+                        if($panierManager->checkIfArticleDansPanier($idArticle)){
+                            $message = "Cet article ne peut pas être supprimé car il dans une commande en cours.";
+                        } else{
+                            $articlesOfManager->deleteArticle($idArticle);
+                            $message= "L'article a bien été supprimé.";
+                        }
                     } else{
                         $message = "L'article que vous désirez supprimer n'existe pas.";
                     }
