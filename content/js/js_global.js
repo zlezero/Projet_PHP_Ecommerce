@@ -25,7 +25,7 @@ $(document).ready(() => {
 
     });
 
-    $('#disconnectButton').click((e) => {
+    $('#disconnectButton, #disconnectButtonAdmin').click((e) => {
 
         $.ajax({
             dataType: "json",

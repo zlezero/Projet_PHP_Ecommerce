@@ -61,12 +61,12 @@
 
                     <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
                         <button class="btn btn-outline-secondary" data-toggle="modal" data-target=".bs-example-modal-sm">Se déconnecter</button>
-                        <div class="modal bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="false">
                         <div class="modal-dialog modal-sm">
                             <div class="modal-content">
                             <div class="modal-header"><h4>Se déconnecter <i class="fa fa-lock"></i></h4></div>
                             <div class="modal-body"><i class="fa fa-question-circle"></i> Etes-vous sur de vouloir vous déconnecter ? </div>
-                            <div class="modal-footer"><a href="javascript:;" class="btn btn-primary btn-block">Se déconnecter</a></div>
+                            <div class="modal-footer"><button class="btn btn-primary btn-block" id="disconnectButtonAdmin">Se déconnecter</button></div>
                             </div>
                         </div>
                         </div>
@@ -135,7 +135,7 @@
                                             </div>
                                             <div class="dropdown-divider"></div>
                                             <div class="form-group text-center">
-                                                <small><a href="#" data-toggle="modal" data-target="#modalPassword">Pas de compte ? S'inscrire</a></small>
+                                                <small><a href="index.php?controller=inscription" data-toggle="modal" data-target="#modalPassword">Pas de compte ? S'inscrire</a></small>
                                             </div>
                                         </form>
                                     </li>
