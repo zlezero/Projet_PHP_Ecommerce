@@ -8,12 +8,8 @@
                     <div class="list-group">
                         <?php foreach($data['categories'] as $indice => $value){
                         ?>
-                        <a href="#" class="list-group-item list-group-item-light"><?=$value['nomCategorie']?></a>
+                        <button type="submit" class="list-group-item list-group-item-light" value="<?= $value['idCategorie'] ?>"><?=$value['nomCategorie']?></button>
                         <?php } ?>
-                        <!--
-                        <button type="submit" class="btn btn-primary mb-2"  name="category" value="1">Category 1</button>
-                       <button type="submit" class="btn btn-primary mb-2" name="category" value="2">Category 2</button>
-                       <button type="submit" class="btn btn-primary mb-2" name="category" value="3">Category 3</button>-->
                         <label for="min">Min</label>
                         <input type="text" name="min" placeholder="1">
                         <label for="max" >Max</label>

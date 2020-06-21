@@ -49,29 +49,42 @@ class Controller_index extends Controller {
 		$categoriesManager = new CategorieManager();
 
 		$defaultValue = $configOrder->getDefaultOrder();
+		$defaultCategorie = -1;
 		$categories = $categoriesManager->getAllCategories();
 
 		if(!empty($_POST)){
 
 			$typeAffichage = $_POST['ordreSelect'] ?? false;
 			$category = $_POST['category'] ?? false;
+
 			$min = $_POST['min'] ?? false;
 			$max = $_POST['max'] ?? false;
 
+			if (is_numeric($min))
+				$min = intval($min);
+			else
+				$min = 0;
+			
+
+			if (is_numeric($max))
+				$max = intval($max);
+			else
+				$max = 10000000;
+
 			if($typeAffichage) {
 				
-				$articles = $articlesManager->getAllArticles($typeAffichage, true, $defaultValue, false, $min,$max);
+				$articles = $articlesManager->getAllArticles($typeAffichage, true, $defaultCategorie, false, $min, $max);
 
 				if($category) {
 					$articles = $articlesManager->getAllArticles($typeAffichage, true, $category, true, $min,$max);
 				} else {
-					$articles = $articlesManager->getAllArticles($typeAffichage, true, $defaultValue, false, $min,$max);
+					$articles = $articlesManager->getAllArticles($typeAffichage, true, $defaultCategorie, false, $min,$max);
 				}
 				
 			} else if($category) {
-				$articles = $articlesManager->getAllArticles($defaultValue, true, $category,true,$min,$max);
+				$articles = $articlesManager->getAllArticles($defaultValue, true, $category, true,$min,$max);
 			} else {
-				$articles = $articlesManager->getAllArticles($defaultValue, true, $defaultValue,false,$min,$max);
+				$articles = $articlesManager->getAllArticles($defaultValue, true, $defaultCategorie, false, $min, $max);
 			}
 
 			if($min) {
@@ -79,7 +92,7 @@ class Controller_index extends Controller {
 			}
 
 		} else{
-			$articles = $articlesManager->getAllArticles($defaultValue, true, $defaultValue, false, $min, $max);
+			$articles = $articlesManager->getAllArticles($defaultValue, true, $defaultCategorie, false, $min, $max);
 		}
 
 		$plink = $articlesManager->prevlink;
