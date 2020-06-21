@@ -111,14 +111,14 @@
                         <li class="page-item"><?php echo  $data['prevlink']; ?></li>
                         <?php for($i=1; $i<=$data['pages'];$i++){ ?>
                             <?php if($data['page']==$i){ ?>
-                                <li class="page-item active"><a class="page-link" href="?page=<?=$i?>"><?=$i?></a></li>
+                                <li class="page-item active"><a class="page-link" href="?controller=index&action=orderBy&tri=<?= $data['typeAffichage'] ?>&page=<?=$i?>"><?=$i?></a></li>
                             <?php }else{ ?>
-                                <li class="page-item"><a class="page-link" href="?page=<?=$i?>"><?=$i?></a></li>
+                                <li class="page-item"><a class="page-link" href="?controller=index&action=orderBy&tri=<?= $data['typeAffichage'] ?>&page=<?=$i?>"><?=$i?></a></li>
                             <?php } ?> 
                         <?php
                             }
                         ?>
-                        <li class="page-item"><?php echo  $data['nextlink']; ?></li>
+                        <li class="page-item"><?php echo $data['nextlink']; ?></li>
                     </ul>
                 </nav>
 
