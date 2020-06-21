@@ -91,7 +91,7 @@ $(document).ready( function() {
                 $('#urlPhotoArt').val(response.urlPhoto);
                 $('#prixArt').val(response.prix);
                 $('#quantiteArt').val(response.quantite);
-                //préselectionner catégorie a partir de response.idCategorie
+              
 
                 $('#formModifierArticle').submit(function(e){
 
