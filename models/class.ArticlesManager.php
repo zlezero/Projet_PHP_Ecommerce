@@ -66,11 +66,17 @@ class ArticlesManager{
                 'min_range' => 1,
             ),
         )));
-    
-        $offset = ($this->page - 1)  * $limit;
-        $start = $offset + 1;
-        $end = min(($offset + $limit), $total);
-
+        if($this->page > 0)
+        {
+            $offset = ($this->page - 1)  * $limit;
+            $start = $offset + 1;
+            $end = min(($offset + $limit), $total);
+        }else
+        {
+            $offset = 0;
+            $start = $offset + 1;
+            $end = min(($offset + $limit), $total);
+        }
         $this->prevlink = ($this->page > 1) ? '<a href="?page=1" title="First page">&laquo;</a> <a href="?page=' . ($this->page - 1) . '" title="Previous page">&lsaquo;</a>' : '<span class="disabled">&laquo;</span> <span class="disabled">&lsaquo;</span>';
         $this->nextlink = ($this->page < $this->pages) ? '<a href="?page=' . ($this->page + 1) . '" title="Next page">&rsaquo;</a> <a href="?page=' . $this->pages . '" title="Last page">&raquo;</a>' : '<span class="disabled">&rsaquo;</span> <span class="disabled">&raquo;</span>';
         $sql .=" LIMIT :limit OFFSET :offset";
@@ -101,9 +107,17 @@ public function getAllArticlesAvecPagination(){
                 ),
             )));
         
-            $offset = ($this->page - 1)  * $limit;
-            $start = $offset + 1;
-            $end = min(($offset + $limit), $total);
+            if($this->page > 0)
+            {
+                $offset = ($this->page - 1)  * $limit;
+                $start = $offset + 1;
+                $end = min(($offset + $limit), $total);
+            }else
+            {
+                $offset = 0;
+                $start = $offset + 1;
+                $end = min(($offset + $limit), $total);
+            }
 
             $this->prevlink = ($this->page > 1) ? '<a href="?page=1" title="First page">&laquo;</a> <a href="?page=' . ($this->page - 1) . '" title="Previous page">&lsaquo;</a>' : '<span class="disabled">&laquo;</span> <span class="disabled">&lsaquo;</span>';
             $this->nextlink = ($this->page < $this->pages) ? '<a href="?page=' . ($this->page + 1) . '" title="Next page">&nbsp;&rsaquo;</a> <a href="?page=' . $this->pages . '" title="Last page">&raquo;</a>' : '<span class="disabled">&rsaquo;</span> <span class="disabled">&raquo;</span>';
@@ -119,7 +133,7 @@ public function getAllArticlesAvecPagination(){
         $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
         $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
         $stmt->execute();
-        return $stmt->fetchAll();    
+       return $stmt->fetchAll();    
         } catch (Exception $e) {
             echo '<p>', $e->getMessage(), '</p>';
         }
