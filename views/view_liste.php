@@ -12,10 +12,10 @@
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
-                    <th scope="col">Date de Commande</th>
-                    <th scope="col">Statut de la commande</th>
-                    <th scope="col">Nombre d'articles</th>
-                    <th scope="col">Total</th>
+                    <th scope="col" style="text-align: center;">Date de Commande</th>
+                    <th scope="col" style="text-align: center;">Statut de la commande</th>
+                    <th scope="col" style="text-align: center;">Nombre d'articles</th>
+                    <th scope="col" style="text-align: center;">Total</th>
                 </tr>
             </thead>
             <tbody>
@@ -31,10 +31,10 @@
                     }
                 ?>
                 <tr>
-                    <td><?=$var->getDateCommande()->format("d-M-Y")?></td>
-                    <td><?=$var->getStatutCommande()->getNomStatutCommande()?></td>
-                    <td> <?=$qte?></td>
-                    <td><?=$prixTotal?>€</td>
+                    <td class="text-center"><?=$var->getDateCommande()->format("d-M-Y")?></td>
+                    <td class="text-center"><?=$var->getStatutCommande()->getNomStatutCommande()?></td>
+                    <td class="text-center"> <?=$qte?></td>
+                    <td class="text-center"><?=$prixTotal?>€</td>
                 </tr>
                 <?php } ?>
             </tbody>
