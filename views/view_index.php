@@ -1,24 +1,4 @@
     <!-- Page Content -->
-    <?php
-        require_once('models\Model.php');
-        $bdd = Model::getDatabase();
-        $page = (isset($_GET['page']) && is_numeric($_GET['page'])) ? $_GET['page'] : 1;
-        $page= ($page < 1) ? $page=1 : $page;
-        $uri = explode('?',$_SERVER['REQUEST_URI'])[0];
-        $querry = (empty($_SERVER['REQUEST_URI'])) ? explode('?',$_SERVER['REQUEST_URI'])[1] : "page=1";
-        if(!empty($querry)){
-            $uri = $uri. '?' . $querry;
-        }
-        //header('Location: ' . $uri);
-        $limite = 10;
-
-    $debut = ($page - 1) * $limite;
-    $query = 'SELECT * FROM `article` LIMIT :limite OFFSET :debut';
-    $query = $bdd->prepare($query);
-    $query->bindValue('debut', $debut, PDO::PARAM_INT);
-    $query->bindValue('limite', $limite, PDO::PARAM_INT);
-    $query->execute();
-    ?>
     <div class="container">
 
         <div class="row">
@@ -26,15 +6,17 @@
                 <h1 class="my-4">Shop Name</h1>
                 <form action ="?controller=index&action=orderBy" method="POST">
                    <div class="list-group">
-                       <button type="submit" class="btn btn-primary mb-2"  name="category" value="1" onclick="document.getElementById('categorie1').style.display='block';">Category 1</button>
-                       <button type="submit" class="btn btn-primary mb-2" name="category" value="2" onclick="document.getElementById('categorie2').style.display='block';">Category 2</button>
-                       <button type="submit" class="btn btn-primary mb-2" name="category" value="3" onclick="document.getElementById('categorie3').style.display='block';">Category 3</button>
+                       <button type="submit" class="btn btn-primary mb-2"  name="category" value="1">Category 1</button>
+                       <button type="submit" class="btn btn-primary mb-2" name="category" value="2">Category 2</button>
+                       <button type="submit" class="btn btn-primary mb-2" name="category" value="3">Category 3</button>
                        <label for="min">Min</label>
                        <input type="text" name="min" placeholder="1">
                        <label for="max" >Max</label>
                        <input type="text" name="max" placeholder="100">
                        <button type="submit">Filtrer</button>
                      </div>
+                     <br>
+                     <button class="btn btn-primary" type="submit">Réinitialiser tous les filtres</button>
                </form>
             </div>
             <!-- /.col-lg-3 -->
@@ -82,43 +64,33 @@
                     <button type="submit" class="btn btn-primary mb-2" value="tri">Trier</button>
                 </form>
                 </br>
-
-                <button><<a href="?page=<?php echo $page - 1;?>">Page précédente</a></button>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <button><a href="?page=<?php echo $page + 1; ?>">Page suivante</a>></button>
-                <br><br>
+                <?php 
+                echo '<div id="paging"><p>', $data['prevlink'], ' Page ', $data['page'], '/', $data['pages'], $data['nextlink'], ' </p></div>';
+                ?>
                 <div class="row">
-                    <?php foreach($data['articles'] as $indice => $value){
-                        /*if(isset($value['idCategorie'])){
-                            require_once('models\Model.php');                        
-                            require_once('models\class.Categorie.php');
-                            $cat = new Categorie($value['idCategorie']);
-                            $categorie = $cat->getNomCategorie();
-                       }*/
-                        ?>   
-                        <div class="col-lg-4 col-md-6 mb-4">
-                            <div class="card h-100">
-                                <a href="#"><img class="card-img-top" src="<?=$value['urlPhoto'];?>" alt=""></a>
-                                <div class="card-body">
-                                    <h4 class="card-title">
-                                        <a href="#"><?=$value['nomArticle']?></a>
-                                    </h4>
-                                    <h5><?=$value['prix']?></h5>
-                                    <p class="card-text"><?=$value['descriptionArticle']?></p>
-                                </div>
-                                <div class="card-footer d-flex justify-content-between align-items-center">
-                                    <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                                    <a href="#" class="btn btn-danger mt-3"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+                    <?php
+                        foreach ($data['articles'] as $indice => $value){
+                            ?>   
+                            <div class="col-lg-4 col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <a href="#"><img class="card-img-top" src="<?=$value['urlPhoto'];?>" alt=""></a>
+                                    <div class="card-body">
+                                        <h4 class="card-title">
+                                            <a href="#"><?=$value['nomArticle']?></a>
+                                        </h4>
+                                        <h5><?=$value['prix']?></h5>
+                                        <p class="card-text"><?=$value['descriptionArticle']?></p>
+                                    </div>
+                                    <div class="card-footer d-flex justify-content-between align-items-center">
+                                        <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                                        <a href="#" class="btn btn-danger mt-3"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    <?php } ?>
+                        <?php }?>
                    </div>
-                   <button><<a href="?page=<?php echo $page - 1;?>">Page précédente</a></button>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <button><a href="?page=<?php echo $page + 1; ?>">Page suivante</a>></button>
-                <br><br>
-
+                <?php echo '<div id="paging"><p>', $data['prevlink'], ' Page ', $data['page'], '/', $data['pages'],$data['nextlink'], ' </p></div>';
+                ?>
                 
                 <!-- /.row -->
 

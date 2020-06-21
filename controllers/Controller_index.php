@@ -12,9 +12,18 @@ class Controller_index extends Controller {
 	public function action_index() {
 
 		$articlesManager = new ArticlesManager();
-		$articles = $articlesManager->getAllArticles("defaultvaLue",true,"defaultvaLue",false,1,10000);
+		//$articles = $articlesManager->getAllArticles("defaultvaLue",true,"defaultvaLue",false,1,10000);
+		$articles = $articlesManager->getAllArticlesAvecPagination();
+		$plink = $articlesManager->prevlink;
+		$nlink = $articlesManager->nextlink;
+		$page  = $articlesManager->page;
+		$pages = $articlesManager->pages;
 		$this->render('index',[
-			'articles' => $articles
+			'articles' => $articles,
+			'prevlink' => $plink,
+			'nextlink' => $nlink,
+			'page'     => $page,
+			'pages'    => $pages
 		]);
 
 	}
@@ -39,10 +48,17 @@ class Controller_index extends Controller {
 					$articles = $articlesManager->getAllArticles("defaultvaLue",true,"defaultvaLue",false,$min,$max);
 
 				}
-				
+				$plink = $articlesManager->prevlink;
+				$nlink = $articlesManager->nextlink;
+				$page  = $articlesManager->page;
+				$pages = $articlesManager->pages;
 				$this->render('index', [
 				'err' => $erreur ?? false,
-				'articles' => $articles
+				'articles' => $articles,
+				'prevlink' => $plink,
+				'nextlink' => $nlink,
+				'page'     => $page,
+				'pages'    => $pages
         		]);
 		}
 	}
