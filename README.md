@@ -2,11 +2,13 @@
 
 Ce projet a pour finalité la mise en place d'un faux site de e-commerce réalisé en PHP/JavaScript.
 
-## Acquisition de la base de données 
+## Préconfiguration
 
-Après avoir lancé votre serveur, il faudra importer le fichier php_ecommerce, qui se trouve dans le dossier db du projet, dans votre SGBD. 
+Tout d'abord, vous devez avoir la version **PHP 7.4.0** et la version **MySQL 8.018**.
 
-Une fois les données importées, vous devez saisir le port de votre SGBD dans le fichier global.config.php du dossier config. Sans cela, vous recevrez un message d'échec lors de la connexion. 
+Après avoir lancé votre serveur, il faudra importer le fichier **php_ecommerce.sql**, qui se trouve dans le dossier **db** du projet, dans votre SGBD. 
+
+Une fois les données importées, vous devez saisir le port de votre SGBD dans le fichier **global.config.php** du dossier **config**. Sans cela, vous recevrez un message d'échec lors de la connexion. 
 
 Enfin, vous pourrez accéder au site via le lien: <http://localhost/projet_php_ecommerce/index.php>. 
 
