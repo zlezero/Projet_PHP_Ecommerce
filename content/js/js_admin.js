@@ -96,6 +96,7 @@ $(document).ready( function() {
                 $('#formModifierArticle').submit(function(e){
 
                     e.preventDefault();
+                    
                     const idArti = idArt; 
                     $.ajax({
                         type: "POST",
@@ -104,9 +105,11 @@ $(document).ready( function() {
                         data: $('#formModifierArticle').serialize() + '&' + 'idCategorie=' + $idCat + '&idArticle=' + idArti,
                         success: function(response){
                             $("#modalSuccessModifyArticle").show();
+                            $('#modifierArticleModal').modal('hide');
                         },
                         error: function(response){
                             $("#modalErrorModifyArticle").show();
+                            $('#modifierArticleModal').modal('hide');
                         }
                     })
             
@@ -117,8 +120,7 @@ $(document).ready( function() {
                 $("#modalErrorModifyArticle").show(); 
             }
 
-            $('#modifieArticleModal').modal('hide');
-            
+
         });
 
     });

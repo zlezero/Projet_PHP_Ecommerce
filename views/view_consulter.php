@@ -51,9 +51,6 @@
     </div>
     <div style="box-sizing: border-box;">
         <p class="total">Total de la commande: <label id="prixTotal"><?= $prixTotal ?></label>€</p>
-        <div  class="text-right mb-3">
-            <a class="btn btn-success confirm" href="index.php?controller=commande&action=valider" >Valider la commande</a>
-        </div>
     </div>
     
         <?php
@@ -61,7 +58,9 @@
             if($data['commande']->getStatutCommande()->getIdStatutCommande()==1){
 
                 ?>
-            <a class="btn btn-success" href="index.php?controller=commande&action=valider" style="float:right">Valider la commande</a>
+            <div  class="text-right mb-3">
+                <a class="btn btn-success confirm" href="index.php?controller=commande&action=valider" >Valider la commande</a>
+            </div>
             <?php
             }
         }
