@@ -4,7 +4,7 @@ require_once('class.Categorie.php');
 
 class Article {
 
-    private $idArticle;
+    private  $idArticle;
     private  $nomArticle;
     private  $descriptionArticle;
     private  $urlPhoto;

@@ -3,7 +3,8 @@
 class CB {
     
     private int $_idCB;
-    private int $_numCB;
+    private string $_numCB;
+    private string $_nomCompletCB;
     private DateTime $_dateExpirationCB;
     private int $_cryptoCB;
 
@@ -25,6 +26,7 @@ class CB {
                 $this->_numCB = $data["numCB"];
                 $this->_dateExpirationCB = new DateTime($data["dateExpirationCB"]);
                 $this->_cryptoCB = $data["cryptoCB"];
+                $this->_nomCompletCB = $data["nomCompletCB"];
             } else {
                 throw new Exception("Aucune CB n'existe avec cet identifiant");
             }
@@ -32,7 +34,6 @@ class CB {
         } catch (Exception $e) {
             throw new Exception($e);
         }
-
 
     }
 
@@ -50,6 +51,10 @@ class CB {
 
     public function getCryptoCB() {
         return $this->_cryptoCB;
+    }
+
+    public function getNomCompletCB() {
+        return $this->_nomCompletCB;
     }
 
 }

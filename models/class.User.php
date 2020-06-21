@@ -35,9 +35,9 @@ class User {
                 $this->_role = new Role($data["idRole"]);
 
                 if (isset($data["idCB"])) {
-                    $this->_idCB = new CB($data["idCB"]);
+                    $this->_CB = new CB($data["idCB"]);
                 } else {
-                    $this->_idCB = null;
+                    $this->_CB = NULL;
                 }
         
             } else {
@@ -90,7 +90,7 @@ class User {
         $this->_role = $role;
     }
 
-    public function setCB(CB $CB) {
+    public function setCB(?CB $CB) {
         $this->_CB = $CB;
     }
     

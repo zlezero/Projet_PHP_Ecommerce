@@ -76,11 +76,11 @@ class Controller_index extends Controller {
 				$category = -1;
 			}
 			
-			$typeAffichage = $_POST['ordreSelect'] ?? false;
-			$category = $_POST['category'] ?? false;
+			$typeAffichage = htmlspecialchars($_POST['ordreSelect']) ?? false;
+			$category = htmlspecialchars($_POST['category']) ?? false;
 
-			$min = $_POST['min'] ?? false;
-			$max = $_POST['max'] ?? false;
+			$min = htmlspecialchars($_POST['min']) ?? false;
+			$max = htmlspecialchars($_POST['max']) ?? false;
 
 			if($typeAffichage) {
 

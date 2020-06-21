@@ -13,6 +13,8 @@ class Commande {
     private DateTime $_dateCommande;
     private array $_articles;
     private PDO $bdd;
+    private string $_cookieUtilisateur;
+    
     public function __construct(int $idCommande) {
 
         try {
@@ -26,13 +28,14 @@ class Commande {
             
             $data = $req->fetch();
     
-            if (count($data) > 0) {
+            if ($data !== false) {
                 $panierManager = new PanierManager();
                 $this->_idCommande = $idCommande;
                 $this->_user =$data["idUtilisateur"]? new User($data["idUtilisateur"]) : null;
                 $this->_dateCommande=new DateTime($data["dateCommande"]);
                 $this->_statutCommande = new StatutCommande($data["idStatutCommande"]);
                 $this->_articles=$panierManager->getAll($idCommande);
+                $this->_cookieUtilisateur = $data["cookieUtilisateur"];
             } else {
                 throw new Exception("Aucune commande n'existe avec cet identifiant");
             }
@@ -66,6 +69,22 @@ class Commande {
 
     public function setStatutCommande(StatutCommande $statutCommande) {
         $this->_statutCommande = $statutCommande;
+    }
+
+    public function getCookieUtilisateur() {
+        return $this->_cookieUtilisateur;
+    }
+
+    public function getMontantTotalPanier() : int {
+        
+        $montantTotal = 0;
+        
+        foreach($this->_articles as $article) {
+            $montantTotal += $article->getArticle()->getPrixArticle();
+        }
+
+        return $montantTotal;
+
     }
     
 }

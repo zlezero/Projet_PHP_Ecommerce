@@ -1,8 +1,8 @@
 <?php
 
 require_once("Model.php");
-
 require_once("class.Commande.php");
+
 class CommandeManager {
 
     private PDO $bdd;
@@ -19,12 +19,13 @@ class CommandeManager {
     
         //$req = $this->bdd->prepare("SELECT idCommande FROM Commande WHERE  idUtilisateur = :idU");
         //$req->bindParam('idU', $idUtilisateur);
-        $req = $this->bdd->prepare("SELECT idCommande FROM Commande");
+        $req = $this->bdd->prepare("SELECT idCommande FROM Commande WHERE cookieUtilisateur = :cookieUtilisateur");
+        $req->bindParam('cookieUtilisateur', $_COOKIE["panier"]);
         $req->execute();
 
         $result = $req->fetchAll();
         $liste=array();
-        foreach($result as $indice=>$value){
+        foreach($result as $indice=>$value) {
             $commande=new Commande($value['idCommande']);
             array_push($liste,$commande);
         }
@@ -32,9 +33,16 @@ class CommandeManager {
     }
 
     public function addCommande() {
-        $sql = "INSERT INTO Commande(idStatutCommande, dateCommande) VALUES(1, SYSDATE())";
+
+        $valeurCookie = hash("sha512", random_bytes(10));
+
+        setcookie('panier', $valeurCookie, time() + 365*24*3600, null, null, false, true);
+
+        $sql = "INSERT INTO Commande(idStatutCommande, dateCommande, cookieUtilisateur) VALUES(1, SYSDATE(), :valeurCookie)";
 
         $req = $this->bdd->prepare($sql);
+
+        $req->bindValue("valeurCookie", $valeurCookie);
 
         $req->execute();
         $commandeID = (intVal($this->bdd->lastInsertId()));
