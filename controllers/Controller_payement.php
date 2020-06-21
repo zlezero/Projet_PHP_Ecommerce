@@ -19,13 +19,19 @@ class Controller_payement extends Controller {
     }
 
     public function action_payer() {
+
         $commandeManager = new CommandeManager();
         $commande=new Commande($_SESSION["idCommande"]);
         $commande->setStatutCommande(new StatutCommande(2));
         $commandeManager->updateStatutCommande($commande);
+
         if (!$this->getSessionManager()->isAdmin() && $this->getSessionManager()->isConnected()) {
             
-            if (checkParameter(["cardNumber", "username", "expirationMois", "expirationAnnee", "CVV"])) {
+            if (checkParameter(["cardNumber", "username", "expirationMois", "expirationAnnee", "CVV"]) || checkParameter(["registeredCard"])) {
+
+                if (isset($_POST["registeredCard"])) {
+                    $this->commandeSucces();
+                }
 
                 if (is_numeric($_POST["cardNumber"])) {
     
@@ -42,27 +48,8 @@ class Controller_payement extends Controller {
                             }
                             
                         }
-    
                         
-                        if(empty($_SESSION["idCommande"])){
-                            $_SESSION["cbErreurSurvenue"];
-                            $this->render("payement");
-                            exit;
-                        }
-                        $commande->setStatutCommande(new StatutCommande(3));
-                        $articleManager = new ArticlesManager();
-                        $commandeManager->updateStatutCommande($commande);
-                            foreach($commande->getArticles() as $article){
-                                $article->getArticle()->setQuantiteArticle($article->getArticle()->getQuantiteArticle()-$article->getQuantite());
-                                $articleManager->updateArticle($article->getArticle());
-                            }
-                        $commandeNew = $commandeManager->addCommande();
-                        $_SESSION["idCommande"]=$commandeNew->getidCommande();
-                        $commandeNew->setUser($this->getSessionManager()->getUser());
-                        $commandeManager->updateUserCommande($commandeNew);
-                        $_SESSION["succes"] = sha1("cbCommandeSucces");
-    
-                        redirect("index.php");
+                        $this->commandeSucces();
     
                     } else {
                         $_SESSION["erreur"] = sha1("cbDateExipirationInvalide");
@@ -81,6 +68,37 @@ class Controller_payement extends Controller {
         } else {
             redirect("index.php");
         }
+
+    }
+
+    private function commandeSucces() {
+
+        $commandeManager = new CommandeManager();
+
+        $commande=new Commande($_SESSION["idCommande"]);
+
+        if(empty($_SESSION["idCommande"])){
+            $_SESSION["cbErreurSurvenue"];
+            $this->render("payement");
+            exit;
+        }
+
+        $commande->setStatutCommande(new StatutCommande(3));
+        $articleManager = new ArticlesManager();
+        $commandeManager->updateStatutCommande($commande);
+
+        foreach($commande->getArticles() as $article){
+            $article->getArticle()->setQuantiteArticle($article->getArticle()->getQuantiteArticle()-$article->getQuantite());
+            $articleManager->updateArticle($article->getArticle());
+        }
+
+        $commandeNew = $commandeManager->addCommande();
+        $_SESSION["idCommande"]=$commandeNew->getidCommande();
+        $commandeNew->setUser($this->getSessionManager()->getUser());
+        $commandeManager->updateUserCommande($commandeNew);
+        $_SESSION["succes"] = sha1("cbCommandeSucces");
+
+        redirect("index.php");
 
     }
 

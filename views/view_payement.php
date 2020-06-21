@@ -80,6 +80,7 @@
                                 <!-- credit card info-->
                                 <div id="nav-tab-card" class="tab-pane fade show active">
                                     <form role="form" id="formCarteExistante" method="POST" action="index.php?controller=payement&action=payer">
+                                        <input type="hidden" value="registeredCard" name="registeredCard">
                                         <div class="form-group">
                                             <label for="username">Nom complet (sur la carte)</label>
                                             <input type="text" name="username" placeholder="Prénom Nom" required class="form-control" value="<?php echo $this->getSessionManager()->getUser()->getCB()->getNomCompletCB() ?>" disabled>
