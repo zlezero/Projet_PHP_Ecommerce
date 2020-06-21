@@ -11,14 +11,10 @@ class CommandeManager {
         $this->bdd = Model::getDatabase();
     }
 
-    //TODO : inverser les parties commentées et décommentées pour ne sélectionner que les commandes d'un utilisateur// TO DO
 
-    //public function getAll(int $idUtilisateur){
     public function getAll(){
         $this->bdd = Model::getDatabase();
     
-        //$req = $this->bdd->prepare("SELECT idCommande FROM Commande WHERE  idUtilisateur = :idU");
-        //$req->bindParam('idU', $idUtilisateur);
         $userID = $_SESSION["sessionManager"]->getUser()->getIdUtilisateur();
         $req = $this->bdd->prepare("SELECT idCommande FROM Commande WHERE idUtilisateur = :idUtilisateur");
         $req->bindParam('idUtilisateur',$userID );
