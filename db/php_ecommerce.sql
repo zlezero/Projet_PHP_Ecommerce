@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3308
--- Généré le :  Dim 21 juin 2020 à 17:39
+-- Généré le :  Dim 21 juin 2020 à 20:16
 -- Version du serveur :  8.0.18
 -- Version de PHP :  7.4.0
 
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `article` (
   `idCategorie` int(11) NOT NULL,
   PRIMARY KEY (`idArticle`),
   KEY `idCategorie` (`idCategorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `article`
@@ -85,7 +85,8 @@ INSERT INTO `article` (`idArticle`, `nomArticle`, `descriptionArticle`, `urlPhot
 (43, 'Kit créatif Vertical Activity Set 2 Tubes IDO3D', 'Contient 2 tubes avec torche intégrée pour faire sécher, un dépliant avec des exemples à suivre pour t\'aider ; Jusqu\'à 10 modèles uniques à réaliser.', 'https://static.fnac-static.com/multimedia/Images/FR/NR/d0/87/7c/8161232/1520-1/tsp20161117172901/Kit-creatif-Vertical-Activity-Set-2-Tubes-IDO3D.jpg', 8, 5, 8),
 (44, 'Kit créatif So Slime Ice Cream Shop', 'Crée ta slime parfumée en mélangeant ta poudre à de l\'eau.', 'https://static.fnac-static.com/multimedia/Images/27/27/8A/B1/11635239-3-1520-2/tsp20200312131549/Kit-creatif-So-Slime-Ice-Cream-Shop-Slimelicious.jpg', 4.99, 5, 8),
 (45, 'Minecraft', 'Minecraft est un jeu vidéo de type « bac à sable » (construction complètement libre) développé par le Suédois Markus Persson, alias Notch, puis par la société Mojang Studios. Il s\'agit d\'un univers composé de voxels et généré aléatoirement, qui intègre un système d\'artisanat axé sur l\'exploitation puis la transformation de ressources naturelles (minéralogiques, fossiles, animales et végétales).', 'https://www.minecraft.net/content/dam/games/minecraft/key-art/Games_Subnav_Minecraft-300x465.jpg', 34, 28, 2),
-(46, 'GTA', 'Lorsqu\'un jeune arnaqueur, un braqueur de banque à la retraite et un terrifiant psychopathe se retrouvent piégés par de grands criminels, le gouvernement américain et l\'industrie du divertissement, ils décident de se lancer dans une série de braquages pour survivre dans une ville sans pitié où ils ne peuvent se fier à personne, même entre eux.', 'https://www.gameclub.fr/dynaimg/src/game371src.jpg', 27, 18, 2);
+(46, 'GTA', 'Lorsqu\'un jeune arnaqueur, un braqueur de banque à la retraite et un terrifiant psychopathe se retrouvent piégés par de grands criminels, le gouvernement américain et l\'industrie du divertissement, ils décident de se lancer dans une série de braquages pour survivre dans une ville sans pitié où ils ne peuvent se fier à personne, même entre eux.', 'https://www.gameclub.fr/dynaimg/src/game371src.jpg', 27, 18, 2),
+(48, 'TestAAA', 'AAA', 'AAA', 10, 10, 2);
 
 -- --------------------------------------------------------
 
@@ -128,14 +129,7 @@ CREATE TABLE IF NOT EXISTS `cb` (
   `cryptoCB` int(3) NOT NULL,
   `nomCompletCB` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`idCB`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Déchargement des données de la table `cb`
---
-
-INSERT INTO `cb` (`idCB`, `numCB`, `dateExpirationCB`, `cryptoCB`, `nomCompletCB`) VALUES
-(1, '123456789115115', '2020-06-25', 121, 'Sebastien Zonchello');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -153,15 +147,7 @@ CREATE TABLE IF NOT EXISTS `commande` (
   PRIMARY KEY (`idCommande`),
   KEY `idUtilisateur` (`idUtilisateur`),
   KEY `idStatutCommande` (`idStatutCommande`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Déchargement des données de la table `commande`
---
-
-INSERT INTO `commande` (`idCommande`, `idUtilisateur`, `idStatutCommande`, `dateCommande`, `cookieUtilisateur`) VALUES
-(14, NULL, 1, '2020-06-21', '46fc650939f37f33980503ebf60d50fd2d8adbc20b617ff7b4e5149c4ad22bed79fb5a2cdb9b3a4d968a55f17694507f2665a8aa2b65323b52621167a44f13f4'),
-(15, NULL, 1, '2020-06-21', '81c259b6daa3d690dae749623e9b07058ceaf7abb7747dedd7936a82629c7841867588a99d89d73206c1e3981b399887c4d131a1a0dd0e0a415f6337930f4922');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -195,15 +181,6 @@ CREATE TABLE IF NOT EXISTS `panier` (
   KEY `idArticle` (`idArticle`),
   KEY `idCommande` (`idCommande`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Déchargement des données de la table `panier`
---
-
-INSERT INTO `panier` (`idCommande`, `idArticle`, `quantite`) VALUES
-(13, 2, 1),
-(14, 2, 1),
-(14, 3, 1);
 
 -- --------------------------------------------------------
 
