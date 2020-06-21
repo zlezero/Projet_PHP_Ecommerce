@@ -51,13 +51,13 @@ class PanierManager {
         $req->execute();
     }
 
-    public function deletePanier(int $idCommande,int $idArticle) {
+    public function deletePanier(Panier $article) {
 
         $sql = "DELETE FROM Panier  WHERE idCommande = :idCommande and idArticle = :idArticle";
 
         $req = $this->bdd->prepare($sql);
-        $req->bindValue('idCommande', $idCommande);
-        $req->bindValue('idArticle', $idArticle);
+        $req->bindValue('idCommande', $article->getIdCommande());
+        $req->bindValue('idArticle', $article->getArticle()->getIdArticle());
 
         $req->execute();
 

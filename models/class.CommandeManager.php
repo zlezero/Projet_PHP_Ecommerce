@@ -77,12 +77,15 @@ class CommandeManager {
 
     }
 
-    public function deleteCommande(int $idCommande) {
-
+    public function deleteCommande(Commande $commande) {
+        $panierManager=new PanierManager();
+        foreach($commande->getArticles() as $article){
+            $panierManager->deletePanier($article);
+        }
         $sql = "DELETE FROM Commande WHERE idCommande = :idCommande";
 
         $req = $this->bdd->prepare($sql);
-        $req->bindValue('idCommande', $idCommande);
+        $req->bindValue('idCommande', $commande->getIdCommande());
 
         $req->execute();
 
