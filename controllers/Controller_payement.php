@@ -9,6 +9,7 @@ class Controller_payement extends Controller {
         if (!$this->getSessionManager()->isAdmin() && $this->getSessionManager()->isConnected()) {
             $this->render("payement");
         } else {
+            $_SESSION["erreur"] = sha1("errorPayementNonLogged");
             redirect("index.php");
         }
 
@@ -25,7 +26,8 @@ class Controller_payement extends Controller {
                     if (is_numeric($_POST["expirationMois"]) && is_numeric($_POST["expirationAnnee"])) {
     
                         if (isset($_POST["registerBankCard"])) {
-                            //$this->getSessionManager()->
+                            $userManager = new UserManager();
+                            $this->getSessionManager()->getUser()->setCB(new CB())
                         }
     
                         $commandeManager = new CommandeManager();
