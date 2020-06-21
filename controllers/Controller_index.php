@@ -21,7 +21,7 @@ class Controller_index extends Controller {
 			$configOrder = new ConfigArticles();
 			$defaultValue = $configOrder->getDefaultOrder();
 			$defaultCategorie= -1;
-			$articles = $articlesManager->getAllArticles($defaultValue,true, $defaultValue,false, 1, 10000);
+			$articles = $articlesManager->getAllArticles($defaultValue,true, $defaultCategorie,false, 1, 10000);
 			$articles = $articlesManager->getAllArticlesAvecPagination();
 			$plink = $articlesManager->prevlink;
 			$nlink = $articlesManager->nextlink;
