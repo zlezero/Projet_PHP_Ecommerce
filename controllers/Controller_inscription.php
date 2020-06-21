@@ -23,7 +23,7 @@ class Controller_inscription extends Controller {
             
             if ($_POST["mdp"] == $_POST["mdpConfirmation"]) {
 
-                if ($userManager->addUser(htmlspecialchars($_POST["nom"]), htmlspecialchars($_POST["prenom"]), htmlspecialchars($_POST["email"]), htmlspecialchars($_POST["mdp"]), new Role(1)) !== false) {
+                if ($userManager->addUser(htmlspecialchars($_POST["nom"]), htmlspecialchars($_POST["prenom"]), htmlspecialchars($_POST["email"]), htmlspecialchars($_POST["mdp"]), new Role(2)) !== false) {
                     $_SESSION["succes"] = sha1("inscriptionSucces");
                     redirect("index.php");
                 } else {

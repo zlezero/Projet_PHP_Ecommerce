@@ -85,6 +85,8 @@ function getSuccessMessage(string $hash) {
             return "<strong>Identifiant</strong> ou <strong>mot de passe</strong> incorrect !";
         case sha1("cbCommandeSucces"):
             return "La commande a été passée avec succès !";
+        case sha1("inscriptionSucces"):
+            return "L'inscription s'est effectuée avec succès !";
         default:
             return "Message inconnu";
     }
