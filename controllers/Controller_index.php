@@ -18,7 +18,8 @@ class Controller_index extends Controller {
 		$categoriesManager = new CategorieManager();
 		$configOrder = new ConfigArticles();
 		$defaultValue = $configOrder->getDefaultOrder();
-		$articles = $articlesManager->getAllArticles($defaultValue,true, $defaultValue,false, 1, 10000);
+		$defaultCategorie= -1;
+		$articles = $articlesManager->getAllArticles($defaultValue,true, $defaultCategorie,false, 1, 10000);
 		$articles = $articlesManager->getAllArticlesAvecPagination();
 		$plink = $articlesManager->prevlink;
 		$nlink = $articlesManager->nextlink;
@@ -55,10 +56,16 @@ class Controller_index extends Controller {
 		if(!empty($_POST)){
 
 			$typeAffichage = $_POST['ordreSelect'] ?? false;
-			$category = $_POST['category'] ?? false;
+			$category = $_POST['idCategory'] ?? false;
 
 			$min = $_POST['min'] ?? false;
 			$max = $_POST['max'] ?? false;
+
+			if(is_numeric($category)){
+				$category = intval($category);
+			}else{
+				$category = -1;
+			}
 
 			if (is_numeric($min))
 				$min = intval($min);
@@ -72,27 +79,21 @@ class Controller_index extends Controller {
 				$max = 10000000;
 
 			if($typeAffichage) {
-				
-				$articles = $articlesManager->getAllArticles($typeAffichage, true, $defaultCategorie, false, $min, $max);
 
-				if($category) {
+				if($category>0) {
 					$articles = $articlesManager->getAllArticles($typeAffichage, true, $category, true, $min,$max);
 				} else {
 					$articles = $articlesManager->getAllArticles($typeAffichage, true, $defaultCategorie, false, $min,$max);
 				}
 				
-			} else if($category) {
+			} else if($category>0) {
 				$articles = $articlesManager->getAllArticles($defaultValue, true, $category, true,$min,$max);
 			} else {
 				$articles = $articlesManager->getAllArticles($defaultValue, true, $defaultCategorie, false, $min, $max);
 			}
 
-			if($min) {
-				$articles = $articlesManager->getAllArticlesMinMax($min, $max);
-			}
-
 		} else{
-			$articles = $articlesManager->getAllArticles($defaultValue, true, $defaultCategorie, false, $min, $max);
+			$articles = $articlesManager->getAllArticles($defaultValue, true, $defaultCategorie, false, 0, 10000000);
 		}
 
 		$plink = $articlesManager->prevlink;
