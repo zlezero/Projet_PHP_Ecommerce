@@ -4,7 +4,10 @@
             <div class="col-lg-3">
 
                 <h1 class="my-4">Catégories</h1>
-                <form action ="?controller=index&action=orderBy" method="POST">
+                <form action ="index.php" method="GET">
+                    <input type="hidden" name="controller" value="index"/>
+                    <input type="hidden" name="action" value="orderBy"/>
+                    
                     <div class="list-group">
                         <?php foreach($data['categories'] as $indice => $value){
                         ?>
@@ -111,9 +114,9 @@
                         <li class="page-item"><?php echo  $data['prevlink']; ?></li>
                         <?php for($i=1; $i<=$data['pages'];$i++){ ?>
                             <?php if($data['page']==$i){ ?>
-                                <li class="page-item active"><a class="page-link" href="?controller=index&action=orderBy&tri=<?= $data['typeAffichage'] ?>&page=<?=$i?>"><?=$i?></a></li>
+                                <li class="page-item active"><a class="page-link" href="?controller=index&idCategory='.$categorie.'&action=orderBy&tri=<?= $data['typeAffichage'] ?>&page=<?=$i?>"><?=$i?></a></li>
                             <?php }else{ ?>
-                                <li class="page-item"><a class="page-link" href="?controller=index&action=orderBy&tri=<?= $data['typeAffichage'] ?>&page=<?=$i?>"><?=$i?></a></li>
+                                <li class="page-item"><a class="page-link" href="?controller=index&action=orderBy&idCategory='.$categorie.'&tri=<?= $data['typeAffichage'] ?>&page=<?=$i?>"><?=$i?></a></li>
                             <?php } ?> 
                         <?php
                             }
