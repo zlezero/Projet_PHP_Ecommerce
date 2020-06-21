@@ -1,7 +1,5 @@
 <div class="container">
-    <div>
-        <h1>Votre commande : (<?=$data['commande']->getStatutCommande()->getNomStatutCommande()?>)</h1>
-    </div><br/>
+    
     <?php if (count($data['commande']->getArticles()) > 0) { ?>
         <div class="table-wrapper">
         <div class="table-title">
