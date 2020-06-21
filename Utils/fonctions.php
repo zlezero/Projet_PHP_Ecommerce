@@ -73,6 +73,8 @@ function getErrorMessage(string $hash) {
             return "La date d'expiration de la carte est invalide.";
         case sha1("cbErreurSurvenue"):
             return "Une erreur est survenue lors de la validation du payement.";
+        case sha1("errorPayementNonLogged"):
+            return "Vous devez être connecté pour pouvoir valider votre commande.";
         default:
             return "Message inconnu";
     }

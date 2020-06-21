@@ -37,11 +37,6 @@ class Controller_commande extends Controller {
 
 	}
 
-	public function action_valider(){
-		$this->render('payement');
-	}
-
-	//TODO : ajouter les critères pour tourner sur l'utilisateur connecté TO DO
 	public function action_liste(){
 
 		if (!$this->getSessionManager()->isAdmin()) {

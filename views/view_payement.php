@@ -11,12 +11,14 @@
                                     Carte de crédit
                                 </a>
                             </li>
+                            <?php if (!is_null($this->getSessionManager()->getUser()->getCB())) { ?>
                             <li class="nav-item">
                                 <a data-toggle="pill" href="#nav-tab-registered-credit-card" class="nav-link rounded-pill">
                                     <i class="fa fa-credit-card"></i>
                                     Utiliser une carte enregistrée
                                 </a>
                             </li>
+                            <?php } ?>
                         </ul>
                         <!-- End -->
 
@@ -72,7 +74,8 @@
                             </div>
                             <!-- End -->
 
-                            <!-- Paypal info -->
+                            <?php if (!is_null($this->getSessionManager()->getUser()->getCB())) { ?>
+                            <!-- Registered credit card info -->
                             <div id="nav-tab-registered-credit-card" class="tab-pane fade">
                                 <!-- credit card info-->
                                 <div id="nav-tab-card" class="tab-pane fade show active">
@@ -121,6 +124,7 @@
 
                             </div>
                             <!-- End -->
+                            <?php } ?>
 
                         </div>
                     </div>

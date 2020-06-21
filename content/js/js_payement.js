@@ -1,12 +1,12 @@
-$(document).ready(() => {
-    /*
+/*$(document).ready(() => {
+    
     $('#formCarteNouvelle, #formCarteExistante').submit((e) => {
 
         e.preventDefault();
 
         $("#confirmationPanierModal").modal("show");
 
-    });*/
+    });
 
     $('#btnConfirmerPayerNouvelleCarte, #btnConfirmerPayerCarteExistante').click((e) => {
         e.preventDefault();
@@ -30,4 +30,4 @@ $(document).ready(() => {
         $('#formCarteExistante').submit();
     })
 
-});
+}); */

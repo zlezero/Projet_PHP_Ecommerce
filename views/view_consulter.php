@@ -59,7 +59,7 @@
 
                 ?>
             <div  class="text-right mb-3">
-                <a class="btn btn-success confirm" href="index.php?controller=commande&action=valider" >Valider la commande</a>
+                <a class="btn btn-success confirm" href="index.php?controller=payement" >Valider la commande</a>
             </div>
             <?php
             }
