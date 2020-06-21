@@ -144,11 +144,11 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <form id="formModifierArticle">
-                        <div class="modal-header">						
+                        <div class="modal-header">
                             <h4 class="modal-title">Modifier Article</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
-                        <div class="modal-body">					
+                        <div class="modal-body">
                             <div class="form-group">
                                 <label>Nom</label>
                                 <input type="text" name="nomArticle" id="nomArt" class="form-control" required>
