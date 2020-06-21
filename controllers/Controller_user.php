@@ -48,7 +48,15 @@ class Controller_user extends Controller {
     public function action_disconnect() {
 
         if (!is_null($this->getSessionManager())) {
+            $user = $this->getSessionManager()->getUser();
             $this->getSessionManager()->disconnect();
+            $commandeManager=new CommandeManager();
+            if($_SESSION["idCommande"]!=null){
+                $commande=new Commande($_SESSION["idCommande"]);
+                $commandeManager->deleteCommande($commande);
+                $_SESSION["idCommande"]=null;
+            }
+            $_SESSION["idCommande"]=$commandeManager->addCommande()->getidCommande();
             $message = "OK";
         } else {
             $message = "Session non initialisée";
