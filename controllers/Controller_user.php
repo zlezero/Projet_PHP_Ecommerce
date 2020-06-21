@@ -1,7 +1,8 @@
 <?php
 
 require_once("Controller.php");
-
+require_once("models/class.Commande.php");
+require_once("models/class.CommandeManager.php");
 class Controller_user extends Controller {
 
     public function action_default() {}
@@ -19,7 +20,12 @@ class Controller_user extends Controller {
                     if ($this->getSessionManager()->isAdmin()) {
                         $message = "ADMIN";
                     }
-
+                    else{
+                        $commande=new Commande($_SESSION["idCommande"]);
+                        $commande->setUser($this->getSessionManager()->getUser());
+                        $commandeManager =new CommandeManager();
+                        $commandeManager->updateUserCommande($commande);
+                    }
                     $message = "OK";
 
                 } else {

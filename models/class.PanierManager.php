@@ -1,6 +1,7 @@
 <?php
 
 require_once("Model.php");
+require_once("class.Panier.php");
 
 class PanierManager {
 

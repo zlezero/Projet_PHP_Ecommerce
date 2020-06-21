@@ -2,6 +2,7 @@
 
 require_once("Controller_commande.php");
 require_once("models/class.UserManager.php");
+require_once("models/class.ArticlesManager.php");
 require_once("models/class.CBManager.php");
 
 class Controller_payement extends Controller {
@@ -18,7 +19,10 @@ class Controller_payement extends Controller {
     }
 
     public function action_payer() {
-
+        $commandeManager = new CommandeManager();
+        $commande=new Commande($_SESSION["idCommande"]);
+        $commande->setStatutCommande(new StatutCommande(2));
+        $commandeManager->updateStatutCommande($commande);
         if (!$this->getSessionManager()->isAdmin() && $this->getSessionManager()->isConnected()) {
             
             if (checkParameter(["cardNumber", "username", "expirationMois", "expirationAnnee", "CVV"])) {
@@ -39,18 +43,23 @@ class Controller_payement extends Controller {
                             
                         }
     
-                        $commandeManager = new CommandeManager();
-    
+                        
                         if(empty($_SESSION["idCommande"])){
                             $_SESSION["cbErreurSurvenue"];
                             $this->render("payement");
                             exit;
                         }
-    
-                        $commande=new Commande($_SESSION["idCommande"]);
-                        $commande->setStatutCommande(new StatutCommande(2));
+                        $commande->setStatutCommande(new StatutCommande(3));
+                        $articleManager = new ArticlesManager();
                         $commandeManager->updateStatutCommande($commande);
-                        
+                            foreach($commande->getArticles() as $article){
+                                $article->getArticle()->setQuantiteArticle($article->getArticle()->getQuantiteArticle()-$article->getQuantite());
+                                $articleManager->updateArticle($article->getArticle());
+                            }
+                        $commandeNew = $commandeManager->addCommande();
+                        $_SESSION["idCommande"]=$commandeNew->getidCommande();
+                        $commandeNew->setUser($this->getSessionManager()->getUser());
+                        $commandeManager->updateUserCommande($commandeNew);
                         $_SESSION["succes"] = sha1("cbCommandeSucces");
     
                         redirect("index.php");

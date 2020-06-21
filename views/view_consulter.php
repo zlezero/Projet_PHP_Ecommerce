@@ -59,9 +59,15 @@
 
                 ?>
             <div  class="text-right mb-3">
-                <a class="btn btn-success confirm" href="index.php?controller=payement" >Valider la commande</a>
+                <a class="btn btn-success confirm" href="index.php?controller=payement" >Valider la commande et payer</a>
             </div>
             <?php
+            }else if($data['commande']->getStatutCommande()->getIdStatutCommande()==2){
+                ?>
+                <div  class="text-right mb-3">
+                    <a class="btn btn-success confirm" href="index.php?controller=payement" >Payer la commande</a>
+                </div>
+                <?php
             }
         }
     } else {
