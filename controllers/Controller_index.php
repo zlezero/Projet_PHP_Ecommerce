@@ -19,6 +19,11 @@ class Controller_index extends Controller {
 		$configOrder = new ConfigArticles();
 		$defaultValue = $configOrder->getDefaultOrder();
 		$articles = $articlesManager->getAllArticles($defaultValue,true, $defaultValue,false, 1, 10000);
+		$articles = $articlesManager->getAllArticlesAvecPagination();
+		$plink = $articlesManager->prevlink;
+		$nlink = $articlesManager->nextlink;
+		$page  = $articlesManager->page;
+		$pages = $articlesManager->pages;
 		$categories = $categoriesManager->getAllCategories();
 
 		if(empty($_SESSION["idCommande"])){
@@ -28,6 +33,10 @@ class Controller_index extends Controller {
 		
 		$this->render('index',[
 			'articles' => $articles,
+			'prevlink' => $plink,
+			'nextlink' => $nlink,
+			'page'     => $page,
+			'pages'    => $pages,
 			'categories' => $categories,
 			'typeAffichage'=> $defaultValue
 		]);
@@ -70,12 +79,21 @@ class Controller_index extends Controller {
 			}
 
 		} else{
-			$articles = $articlesManager->getAllArticles($defaultValue, true, $defaultValue, false, $min, $max);	
+			$articles = $articlesManager->getAllArticles($defaultValue, true, $defaultValue, false, $min, $max);
 		}
+
+		$plink = $articlesManager->prevlink;
+		$nlink = $articlesManager->nextlink;
+		$page  = $articlesManager->page;
+		$pages = $articlesManager->pages;
 
 		$this->render('index', [
 			'err' => $erreur ?? false,
 			'articles' => $articles,
+			'prevlink' => $plink,
+			'nextlink' => $nlink,
+			'page'     => $page,
+			'pages'    => $pages,
 			'categories' => $categories,
 			'typeAffichage' => $typeAffichage ?? $defaultValue
 		]);
