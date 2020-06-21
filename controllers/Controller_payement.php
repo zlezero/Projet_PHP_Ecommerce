@@ -1,6 +1,8 @@
 <?php
 
 require_once("Controller_commande.php");
+require_once("models/class.UserManager.php");
+require_once("models/class.CBManager.php");
 
 class Controller_payement extends Controller {
 
@@ -27,7 +29,14 @@ class Controller_payement extends Controller {
     
                         if (isset($_POST["registerBankCard"])) {
                             $userManager = new UserManager();
-                            //$this->getSessionManager()->getUser()->setCB(new CB())
+                            $cbManager = new CBManager();
+
+                            $CB = $cbManager->addCB(htmlspecialchars($_POST["cardNumber"]), htmlspecialchars($_POST["username"]), new DateTime(htmlspecialchars("01-".htmlspecialchars($_POST["expirationMois"])."-".htmlspecialchars($_POST["expirationAnnee"]))), $_POST["CVV"]);
+
+                            if ($CB !== false) {
+                                $this->getSessionManager()->getUser()->setCB($CB);
+                            }
+                            
                         }
     
                         $commandeManager = new CommandeManager();
