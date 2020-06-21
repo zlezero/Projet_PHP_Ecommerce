@@ -14,7 +14,7 @@ class Controller_user extends Controller {
             
             if (!is_null($this->getSessionManager())) {
                 
-                if ($this->getSessionManager()->login($_POST['email'], $_POST['mdp'])) {
+                if ($this->getSessionManager()->login(htmlspecialchars($_POST['email']), htmlspecialchars($_POST['mdp']))) {
 
                     if ($this->getSessionManager()->isAdmin()) {
                         $message = "ADMIN";

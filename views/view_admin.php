@@ -93,11 +93,11 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <form id="formAjouterArticle">
-                        <div class="modal-header">						
+                        <div class="modal-header">
                             <h4 class="modal-title">Ajouter Article</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
-                        <div class="modal-body">					
+                        <div class="modal-body">
                             <div class="form-group">
                                 <label>Nom</label>
                                 <input type="text" name="nomArticle" class="form-control" required>
@@ -128,7 +128,7 @@
                                     <a class="dropdown-item" href="#" name="<?=$value['idCategorie']?>"><?=$value['nomCategorie']?></a>
                                 <?php } ?>
                                 </div>
-                            </div>     	  					
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <input type="button" class="btn btn-default" data-dismiss="modal" value="Fermer">
@@ -179,7 +179,7 @@
                                     <a class="dropdown-item" href="#" name="<?=$value['idCategorie']?>"><?=$value['nomCategorie']?></a>
                                 <?php } ?>
                                 </div>
-                            </div>     					
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <input type="button" class="btn btn-default" data-dismiss="modal" value="Fermer">
@@ -195,11 +195,11 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <form id="formSupprimerArticle">
-                        <div class="modal-header">						
+                        <div class="modal-header">
                             <h4 class="modal-title">Supprimer Article</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
-                        <div class="modal-body">					
+                        <div class="modal-body">
                             <p>Etes-vous sur de vouloir supprimer cet article ?</p>
                             <p class="text-warning"><small>Cette action est irréversible.</small></p>
                         </div>
@@ -211,8 +211,6 @@
                 </div>
             </div>
         </div>
-
-
 
     </div>
     <!-- /.container -->

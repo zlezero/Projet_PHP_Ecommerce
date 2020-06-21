@@ -37,7 +37,7 @@ class Controller_articles extends Controller {
         
         if ($this->checkAdmin()) {
 
-            $defaultOrd = $_GET['value'] ?? false;
+            $defaultOrd = htmlspecialchars($_GET['value']) ?? false;
             if($defaultOrd){
                 $config = new ConfigArticles();
                 $config->updateDefaultOrder($defaultOrd);
@@ -59,7 +59,7 @@ class Controller_articles extends Controller {
 
             if(!empty($_GET)) {
                 $articlesOfManager = new ArticlesManager();
-                $idArticle = $_GET['value'] ?? false;
+                $idArticle = htmlspecialchars($_GET['value']) ?? false;
                 if($idArticle){
                     if($articlesOfManager->checkArticleExists($idArticle)){
                         $article = $articlesOfManager->getArticle($idArticle);
@@ -83,12 +83,12 @@ class Controller_articles extends Controller {
 
                 $articlesOfManager = new ArticlesManager();
     
-                $articleName = $_POST['nomArticle'] ?? false;
-                $articleDescription = $_POST['descriptionArticle'] ?? false;
-                $articleUrl = $_POST['urlPhoto'] ?? false;
-                $articlePrice = $_POST['prix'] ?? false;
-                $articleQuantity = $_POST['quantite'] ?? false;
-                $idCategorie = $_POST['idCategorie'] ?? false;
+                $articleName = htmlspecialchars($_POST['nomArticle']) ?? false;
+                $articleDescription = htmlspecialchars($_POST['descriptionArticle']) ?? false;
+                $articleUrl = htmlspecialchars($_POST['urlPhoto']) ?? false;
+                $articlePrice = htmlspecialchars($_POST['prix']) ?? false;
+                $articleQuantity = htmlspecialchars($_POST['quantite']) ?? false;
+                $idCategorie = htmlspecialchars($_POST['idCategorie']) ?? false;
                 $articleCategorie = new Categorie(intval($idCategorie));
                 
                 if($articleName && $articleDescription && $articleUrl && $articlePrice && $articleQuantity && $articleCategorie){
@@ -122,13 +122,13 @@ class Controller_articles extends Controller {
 
                 $articlesOfManager = new ArticlesManager();
     
-                $idArticle = $_POST['idArticle'] ?? false;
-                $newName = $_POST['nomArticle'] ?? false;
-                $newDescription = $_POST['descriptionArticle'] ?? false;
-                $newUrl = $_POST['urlPhoto'] ?? false;
-                $newPrice = $_POST['prix'] ?? false;
-                $newQuantity = $_POST['quantite'] ?? false;
-                $newIdCategorie = $_POST['idCategorie'] ?? false;
+                $idArticle = htmlspecialchars($_POST['idArticle']) ?? false;
+                $newName = htmlspecialchars($_POST['nomArticle']) ?? false;
+                $newDescription = htmlspecialchars($_POST['descriptionArticle']) ?? false;
+                $newUrl = htmlspecialchars($_POST['urlPhoto']) ?? false;
+                $newPrice = htmlspecialchars($_POST['prix']) ?? false;
+                $newQuantity = htmlspecialchars($_POST['quantite']) ?? false;
+                $newIdCategorie = htmlspecialchars($_POST['idCategorie']) ?? false;
                 $newArticleCategorie = new Categorie(intval($newIdCategorie));
     
                 if($idArticle && $newName && $newDescription && $newUrl && $newPrice && $newQuantity && $newArticleCategorie){
@@ -163,7 +163,7 @@ class Controller_articles extends Controller {
             if(!empty($_GET)){
                 $articlesOfManager = new ArticlesManager();
     
-                $idArticle = $_GET['value'] ?? false;
+                $idArticle = htmlspecialchars($_GET['value']) ?? false;
     
                 if($idArticle){
                     if($articlesOfManager->checkArticleExists($idArticle)){

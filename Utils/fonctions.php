@@ -62,9 +62,17 @@ function getErrorMessage(string $hash) {
         case sha1("inscriptionParametresInvalides"):
             return "Les arguments envoyés sont invalides.";
         case sha1("inscriptionErreurSurvenue"):
-            return "Une erreur est survenue lors de l'inscription";
+            return "Une erreur est survenue lors de l'inscription.";
         case sha1("inscriptionMdpNonCorrespondants"):
-            return "Les deux mots de passe ne correspondent pas";
+            return "Les deux mots de passe ne correspondent pas.";
+        case sha1("cbArgInvalides"):
+            return "Les arguments envoyés sont invalides.";
+        case sha1("cbCardNumberIncorrect"):
+            return "Le numéro de carte est incorrect.";
+        case sha1("cbDateExipirationInvalide"):
+            return "La date d'expiration de la carte est invalide.";
+        case sha1("cbErreurSurvenue"):
+            return "Une erreur est survenue lors de la validation du payement.";
         default:
             return "Message inconnu";
     }
@@ -75,6 +83,8 @@ function getSuccessMessage(string $hash) {
     switch ($hash) {
         case sha1("loginIncorrect"):
             return "<strong>Identifiant</strong> ou <strong>mot de passe</strong> incorrect !";
+        case sha1("cbCommandeSucces"):
+            return "La commande a été passée avec succès !";
         default:
             return "Message inconnu";
     }

@@ -24,7 +24,7 @@ abstract class Controller
         //On détermine s'il existe dans l'url un paramètre action correspondant à une action du contrôleur
         if (isset($_GET['action']) and method_exists($this, "action_" . $_GET["action"])) {
             //Si c'est le cas, on appelle cette action
-            $action = "action_" . $_GET["action"];
+            $action = "action_" . htmlspecialchars($_GET["action"]);
             $this->$action();
         } else {
             $this->action_default(); //Sinon, on appelle l'action par défaut
