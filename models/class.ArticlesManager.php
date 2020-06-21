@@ -5,6 +5,10 @@ require_once('class.Article.php');
 class ArticlesManager{
 
     private $bdd;
+    public $prevlink;
+    public $nextlink;
+    public $page;
+    public $pages;
 
     public function __construct()
     {
@@ -49,7 +53,29 @@ class ArticlesManager{
         if($min && $max){
                     $sql.= " and (prix between ".$min." and ".$max.")";
         }
+        
+        $total = $this->bdd->query($sql)->rowCount();
+        $limit = 10;
+    
+        $this->pages = ceil($total / $limit);
+    
+        $this->page = min($this->pages, filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT, array(
+            'options' => array(
+                'default'   => 1,
+                'min_range' => 1,
+            ),
+        )));
+    
+        $offset = ($this->page - 1)  * $limit;
+        $start = $offset + 1;
+        $end = min(($offset + $limit), $total);
+
+        $this->prevlink = ($this->page > 1) ? '<a href="?page=1" title="First page">&laquo;</a> <a href="?page=' . ($this->page - 1) . '" title="Previous page">&lsaquo;</a>' : '<span class="disabled">&laquo;</span> <span class="disabled">&lsaquo;</span>';
+        $this->nextlink = ($this->page < $this->pages) ? '<a href="?page=' . ($this->page + 1) . '" title="Next page">&rsaquo;</a> <a href="?page=' . $this->pages . '" title="Last page">&raquo;</a>' : '<span class="disabled">&rsaquo;</span> <span class="disabled">&raquo;</span>';
+        $sql .=" LIMIT :limit OFFSET :offset";
         $req = $this->bdd->prepare($sql);
+        $req->bindParam(':limit', $limit, PDO::PARAM_INT);
+        $req->bindParam(':offset', $offset, PDO::PARAM_INT);
         $req->execute();
         return $req->fetchAll();
     }
@@ -81,14 +107,50 @@ class ArticlesManager{
         }
         return $resultat;
     }
+public function getAllArticlesAvecPagination(){
+    try {
+            $total = $this->bdd->query('
+                SELECT
+                    COUNT(*)
+                FROM
+                    article
+            ')->fetchColumn();
+        
+            $limit = 10;
+        
+            $this->pages = ceil($total / $limit);
+        
+            $this->page = min($this->pages, filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT, array(
+                'options' => array(
+                    'default'   => 1,
+                    'min_range' => 1,
+                ),
+            )));
+        
+            $offset = ($this->page - 1)  * $limit;
+            $start = $offset + 1;
+            $end = min(($offset + $limit), $total);
 
-    /*public function getAllArticlesMinMax(int $min,int $max){
-        $sql = "SELECT * FROM article WHERE prix > ? OR prix < ?";
-        $req = $this->bdd->prepare($sql);
-        $req->execute(array($min,$max));
-        return $req->fetchAll();
-       // var_dump($req->fetchAll());
-    }*/
+            $this->prevlink = ($this->page > 1) ? '<a href="?page=1" title="First page">&laquo;</a> <a href="?page=' . ($this->page - 1) . '" title="Previous page">&lsaquo;</a>' : '<span class="disabled">&laquo;</span> <span class="disabled">&lsaquo;</span>';
+            $this->nextlink = ($this->page < $this->pages) ? '<a href="?page=' . ($this->page + 1) . '" title="Next page">&nbsp;&rsaquo;</a> <a href="?page=' . $this->pages . '" title="Last page">&raquo;</a>' : '<span class="disabled">&rsaquo;</span> <span class="disabled">&raquo;</span>';
+        
+            $stmt = $this->bdd->prepare('
+                SELECT *  
+                FROM article
+                ORDER BY  idArticle
+                LIMIT :limit
+                OFFSET :offset         
+            ');
+        
+        $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll();    
+        } catch (Exception $e) {
+            echo '<p>', $e->getMessage(), '</p>';
+        }
+    }
+
     public function getArticle(int $id){
         $req = $this->bdd->prepare('SELECT * FROM article WHERE idArticle = :id');
         $req->bindValue(':id',$id);
