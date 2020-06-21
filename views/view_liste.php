@@ -44,7 +44,7 @@
 <?php
 } else {
     ?>
-    <h2>Vous n'avez aucun article dans votre panier</h2>
+    <h2>Vous n'avez aucun article dans votre panier.</h2>
 <?php
 }
 ?>
