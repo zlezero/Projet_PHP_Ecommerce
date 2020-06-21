@@ -29,20 +29,20 @@ class Controller_index extends Controller {
 			$pages = $articlesManager->pages;
 			$categories = $categoriesManager->getAllCategories();
 		
-				if(empty($_SESSION["idCommande"])){
-					$commandeManager=new CommandeManager();
-					$_SESSION["idCommande"]= $commandeManager->addCommande()->getidCommande();
-				}
-				
-				$this->render('index',[
-					'articles' => $articles,
-					'prevlink' => $plink,
-					'nextlink' => $nlink,
-					'page'     => $page,
-					'pages'    => $pages,
-					'categories' => $categories,
-					'typeAffichage'=> $defaultValue
-				]);
+			if(empty($_SESSION["idCommande"])){
+				$commandeManager=new CommandeManager();
+				$_SESSION["idCommande"]= $commandeManager->addCommande()->getidCommande();
+			}
+			
+			$this->render('index',[
+				'articles' => $articles,
+				'prevlink' => $plink,
+				'nextlink' => $nlink,
+				'page'     => $page,
+				'pages'    => $pages,
+				'categories' => $categories,
+				'typeAffichage'=> $defaultValue
+			]);
 
 		} else {
 			redirect("index.php?controller=articles");
@@ -65,7 +65,10 @@ class Controller_index extends Controller {
 			$defaultCategorie = -1;
 			$categories = $categoriesManager->getAllCategories();
 
-			if(!empty($_POST)){
+			$min = 0;
+			$max = 10000000;
+
+			if(!empty($_POST)) {
 
 			if(is_numeric($category)){
 				$category = intval($category);
@@ -112,6 +115,7 @@ class Controller_index extends Controller {
 				
 			} else if($category>0) {
 				$articles = $articlesManager->getAllArticles($defaultValue, true, $category, true,$min,$max);
+
 			} else {
 				$articles = $articlesManager->getAllArticles($defaultValue, true, $defaultCategorie, false, $min, $max);
 			}

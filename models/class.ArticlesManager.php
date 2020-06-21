@@ -114,54 +114,49 @@ class ArticlesManager{
 
     public function getAllArticlesAvecPagination(){
         try {
-                $total = $this->bdd->query('
-                    SELECT
-                        COUNT(*)
-                    FROM
-                        article
-                ')->fetchColumn();
-            
-                $limit = 10;
-            
-                $this->pages = ceil($total / $limit);
-            
-                $this->page = min($this->pages, filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT, array(
-                    'options' => array(
-                        'default'   => 1,
-                        'min_range' => 1,
-                    ),
-                )));
-  
-                if($this->page > 0)
-                {
-                    $offset = ($this->page - 1)  * $limit;
-                    $start = $offset + 1;
-                    $end = min(($offset + $limit), $total);
-                }else
-                {
-                    $offset = 0;
-                    $start = $offset + 1;
-                    $end = min(($offset + $limit), $total);
-                }
+            $total = $this->bdd->query('
+                SELECT
+                    COUNT(*)
+                FROM
+                    article
+            ')->fetchColumn();
+        
+            $limit = 10;
+        
+            $this->pages = ceil($total / $limit);
+        
+            $this->page = min($this->pages, filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT, array(
+                'options' => array(
+                    'default'   => 1,
+                    'min_range' => 1,
+                ),
+            )));
+        
+            $offset = ($this->page - 1)  * $limit;
+            $start = $offset + 1;
+            $end = min(($offset + $limit), $total);
 
-                $this->prevlink = ($this->page > 1) ? '<a class="page-link" href="?page=1" title="First page">&laquo;</a></li> <li class="page-item"><a class="page-link" href="?page=' . ($this->page - 1) . '" title="Previous page">&lsaquo;</a>' : '<a class="page-link" href="#" aria-label="Previous"><span class="disabled">&laquo;</span></a></li> <li class="page-item"><a class="page-link" href="#" aria-label="First Page"><span class="disabled">&lsaquo;</span></a>';
-                $this->nextlink = ($this->page < $this->pages) ? '<a class="page-link" href="?page=' . ($this->page + 1) . '" title="Next page">&rsaquo;</a></li> <li class="page-item"><a class="page-link" href="?page=' . $this->pages . '" title="Last page">&raquo;</a>' : '<a class="page-link" href="#" aria-label="Next"><span class="disabled">&rsaquo;</span></a></li> <li class="page-item"><a class="page-link" href="#" aria-label="Last Page"><span class="disabled">&raquo;</span></a>';
-    
-                $stmt = $this->bdd->prepare('
-                    SELECT *  
-                    FROM article
-                    ORDER BY idArticle
-                    LIMIT :limit
-                    OFFSET :offset         
-                ');
+            $this->prevlink = ($this->page > 1) ? '<a href="?page=1" title="First page">&laquo;</a> <a href="?page=' . ($this->page - 1) . '" title="Previous page">&lsaquo;</a>' : '<span class="disabled">&laquo;</span> <span class="disabled">&lsaquo;</span>';
+            $this->nextlink = ($this->page < $this->pages) ? '<a href="?page=' . ($this->page + 1) . '" title="Next page">&nbsp;&rsaquo;</a> <a href="?page=' . $this->pages . '" title="Last page">&raquo;</a>' : '<span class="disabled">&rsaquo;</span> <span class="disabled">&raquo;</span>';
+        
+            $stmt = $this->bdd->prepare('
+                SELECT *  
+                FROM article
+                ORDER BY  idArticle
+                LIMIT :limit
+                OFFSET :offset         
+            ');
             
-            $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
-            $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+            $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+            $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
             $stmt->execute();
-            return $stmt->fetchAll();    
-            } catch (Exception $e) {
-                echo '<p>', $e->getMessage(), '</p>';
-            }
+
+        return $stmt->fetchAll();
+
+        } catch (Exception $e) {
+            echo '<p>', $e->getMessage(), '</p>';
+        }
+        
     }
 
     public function getArticle(int $id){
