@@ -9,7 +9,7 @@ return array(
     'database' => array(
         'dsn' => 'mysql',
         'host' => 'localhost',
-        'port' => '3308',
+        'port' => '3306',
         'name' => 'php_ecommerce',
         'user' => 'root',
         'pwd' => ''

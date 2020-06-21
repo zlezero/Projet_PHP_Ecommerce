@@ -19,8 +19,9 @@ class CommandeManager {
     
         //$req = $this->bdd->prepare("SELECT idCommande FROM Commande WHERE  idUtilisateur = :idU");
         //$req->bindParam('idU', $idUtilisateur);
-        $req = $this->bdd->prepare("SELECT idCommande FROM Commande WHERE cookieUtilisateur = :cookieUtilisateur");
-        $req->bindParam('cookieUtilisateur', $_COOKIE["panier"]);
+        $userID = $_SESSION["sessionManager"]->getUser()->getIdUtilisateur();
+        $req = $this->bdd->prepare("SELECT idCommande FROM Commande WHERE idUtilisateur = :idUtilisateur");
+        $req->bindParam('idUtilisateur',$userID );
         $req->execute();
 
         $result = $req->fetchAll();
@@ -69,6 +70,7 @@ class CommandeManager {
 
         $req = $this->bdd->prepare($sql);
 
+        $req->bindValue('idCommande', $commande->getidCommande());
         $req->bindValue('idUser', $commande->getUser()->getIdUtilisateur());
 
         $req->execute();

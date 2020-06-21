@@ -95,7 +95,9 @@
                                 <span class="sr-only">(current)</span>
                             </a>
                         </li>
-                        <li class="nav-item order-2 order-md-1"><a href="index.php?controller=commande&action=liste" class="nav-link" title="Historique des commandes">Commandes <i class="fa fa-shopping-bag"aria-hidden="true" style="font-size: 14px;"></i></a></li>
+                        <?php if ($this->getSessionManager()->isConnected()) { ?>
+                            <li class="nav-item order-2 order-md-1"><a href="index.php?controller=commande&action=liste" class="nav-link" title="Historique des commandes">Commandes <i class="fa fa-shopping-bag"aria-hidden="true" style="font-size: 14px;"></i></a></li>
+                        <?php }?>
                         <li class="nav-item order-2 order-md-1"><a href="index.php?controller=commande&action=consulter" class="nav-link" title="Panier">Mon panier <i class="fa fa-shopping-cart" aria-hidden="true" style="font-size: 14px;"></i></a></li>
                     </ul>
                     <ul class="nav navbar-nav flex-row justify-content-between ml-auto">

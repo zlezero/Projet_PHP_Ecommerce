@@ -26,8 +26,8 @@
                     $qte = 0;
                     $panier = $var->getArticles();
                     foreach ($panier as $article) {
-                        $prixTotal += $article->getArticle()->getPrixArticle();
-                        $qte+=1;
+                        $prixTotal += $article->getArticle()->getPrixArticle() * $article->getQuantite();
+                        $qte+= $article->getQuantite();
                     }
                 ?>
                 <tr>
