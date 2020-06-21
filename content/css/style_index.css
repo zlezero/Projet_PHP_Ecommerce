@@ -21,6 +21,10 @@ button:focus {
     object-fit: cover;
 }
 
+.d-block{
+    width: 799px;
+    height: 414px;
+}
 .btn-light:not(:disabled):not(.disabled).active,
 .btn-light:not(:disabled):not(.disabled):active,
 .show>.btn-light.dropdown-toggle {

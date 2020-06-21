@@ -11,6 +11,7 @@ function addPanier(idA,idC) {
         data:myData,
         type: "POST",
         success: function (data) {
+            //mettre un toast à la place
             alert("Un exemplaire de l'article a été ajouté au panier");
         },
         error: function (response) {

@@ -14,14 +14,14 @@
                 <label><?= $var->getArticle()->getNomArticle() ?></label>
                 <label id="prixUnit_<?= $var->getArticle()->getIdArticle() ?>" ><?= $var->getArticle()->getPrixArticle() ?></label><label>€</label>
                 &nbsp;&nbsp;&nbsp;
-                <button <?=$data['commande']->getStatutCommande()->getIdStatutCommande()==1 ? "":"disabled"?> onclick="updPanier(<?= $var->getArticle()->getIdArticle() ?>,<?= $var->getIdCommande() ?>,'remove1')">-</button>
+                <button type="button" class="btn btn-light" <?=$data['commande']->getStatutCommande()->getIdStatutCommande()==1 ? "":"disabled"?> onclick="updPanier(<?= $var->getArticle()->getIdArticle() ?>,<?= $var->getIdCommande() ?>,'remove1')">-</button>
                 <input disabled id="qte_<?= $var->getArticle()->getIdArticle() ?>" style="width: 40px;" value='<?= $var->getQuantite() ?>' />
-                <button onclick="updPanier(<?= $var->getArticle()->getIdArticle() ?>,<?= $var->getIdCommande() ?>,'add')">+</button> exemplaires
+                <button type="button" class="btn btn-light" onclick="updPanier(<?= $var->getArticle()->getIdArticle() ?>,<?= $var->getIdCommande() ?>,'add')">+</button> exemplaires
                 
                 &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;
                 <label id="prix_<?= $var->getArticle()->getIdArticle() ?>"><?= $var->getQuantite() * $var->getArticle()->getPrixArticle() ?></label>
                 <label>€</label>
-                <button onclick="updPanier(<?= $var->getArticle()->getIdArticle() ?>,<?= $var->getIdCommande() ?>,'delete')" style="background-color:red;color:white"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                <button type="button" class="btn btn-danger" onclick="updPanier(<?= $var->getArticle()->getIdArticle() ?>,<?= $var->getIdCommande() ?>,'delete')" style="background-color:red;color:white"><i class="fa fa-trash" aria-hidden="true"></i></button>
             </div>
             <br />
 
