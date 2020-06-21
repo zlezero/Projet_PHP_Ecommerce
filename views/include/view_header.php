@@ -42,9 +42,9 @@
         ?>
         <!-- Navigation -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-            <div class="container">
-
-                <a class="navbar-brand" href="index.php?controller=articles#"><img alt="Logo" src="content/images/vintairLogoFull.png" width="32%"></a>
+            
+        <div class="container">
+                <a class="navbar-brand" href="index.php?controller=articles#"><img alt="Logo" src="content/images/vintairLogoFull.png" width="236px" height="40px" max-width="none"></a>
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -73,7 +73,7 @@
                     </ul>
 
                 </div>
-            </div>
+        </div>    
 
         </nav>
         <?php
@@ -83,7 +83,7 @@
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
             <div class="container">
 
-                <a class="navbar-brand" href="index.php"><img alt="Logo" src="content/images/vintairLogoFull.png" width="32%"></a>
+                <a class="navbar-brand" href="index.php"><img alt="Logo" src="content/images/vintairLogoFull.png" width="140px" height="40px" max-width="none"></a>
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -96,11 +96,12 @@
                                 <span class="sr-only">(current)</span>
                             </a>
                         </li>
-                        <li class="nav-item order-2 order-md-1"><a href="index.php?controller=commande&action=liste" class="nav-link" title="Historique des commandes">Commandes</a></li>
+                        <li class="nav-item order-2 order-md-1"><a href="index.php?controller=commande&action=liste" class="nav-link" title="Historique des commandes">Commandes <i class="fa fa-shopping-bag"aria-hidden="true" style="font-size: 14px;"></i></a></li>
+                        <li class="nav-item order-2 order-md-1"><a href="index.php?controller=commande&action=consulter" class="nav-link" title="Panier">Mon panier <i class="fa fa-shopping-cart" aria-hidden="true" style="font-size: 14px;"></i></a></li>
                     </ul>
                     <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
                         <!--TODO : critère si l'utilisateur est connecté TO DO -->
-                        <li class="nav-item order-2 order-md-1"><a href="index.php?controller=commande&action=consulter" class="nav-link" title="Panier"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
+                        
 
 
                         <li class="dropdown order-1">

@@ -8,7 +8,7 @@
                 <div class="list-group">
                     <?php foreach($data['categories'] as $indice => $value){
                     ?>
-                    <a href="#" class="list-group-item"><?=$value['nomCategorie']?></a>
+                    <a href="#" class="list-group-item list-group-item-light"><?=$value['nomCategorie']?></a>
                     <?php } ?>
                 </div>
 
@@ -22,16 +22,48 @@
                         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
                         <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
                         <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
                     </ol>
                     <div class="carousel-inner" role="listbox">
                         <div class="carousel-item active">
-                            <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="First slide">
+                            <div class="view">
+                                <img class="d-block img-fluid" src="https://www.leguidedugamer.fr/wp-content/uploads/2018/06/pc-gamer-ou-console.jpg" alt="First slide">
+                                <div class="mask rgba-black-light"></div>
+                            </div>
+                            <div class="carousel-caption">
+                                <h3 class="h3-responsive">Découvrer les nouveaux jeux vidéos</h3>
+                                <p>Commandez dès maintenant !</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item ">
+                            <div class="view">
+                                <img class="d-block img-fluid" src="https://www.posca.com/wp-content/uploads/2018/07/communautcs-loisirs-crcatifs-1-1920x1080-c-default.jpg" alt="First slide">
+                                <div class="mask rgba-black-light"></div>
+                            </div>
+                            <div class="carousel-caption">
+                                <h3 class="h3-responsive">Besoin de s'évader ?</h3>
+                                <p>Laissez parler votre créativité !</p>
+                            </div>
                         </div>
                         <div class="carousel-item">
-                            <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Second slide">
+                            <div class="view">
+                                <img class="d-block img-fluid" src="https://s3.amazonaws.com/rose.vero/wp-content/uploads/2019/06/12155509/Jeux-de-socie%CC%81te%CC%81-en-famille.jpg" alt="Second slide">
+                                <div class="mask rgba-black-strong"></div>
+                            </div>
+                            <div class="carousel-caption">
+                                <h3 class="h3-responsive">Jeux pour toute la famille</h3>
+                                <p>Partagez vos passions  !</p>
+                            </div>
                         </div>
                         <div class="carousel-item">
-                            <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Third slide">
+                            <div class="view">
+                                <img class="d-block img-fluid" src="https://images.frandroid.com/wp-content/uploads/2020/06/sony-ps5-conference_2020-06-11_23-12-30.jpg" alt="Third slide">
+                                <div class="mask rgba-black-slight"></div>
+                            </div>
+                            <div class="carousel-caption">
+                                <h3 class="h3-responsive">Evénement</h3>
+                                <p>Précommande des jeux annoncés bientôt disponible</p>
+                            </div>
                         </div>
                     </div>
                     <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
