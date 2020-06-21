@@ -15,27 +15,23 @@ class ArticlesManager{
         $this->bdd = Model::getDatabase();
     }
 
-    public function getAllArticles(string $typeAffichage,bool $afficherQuantitePositive,$categorie,$parCategorieUniquement,$min,$max){
+    public function getAllArticles(string $typeAffichage, bool $afficherQuantitePositive, $categorie, $parCategorieUniquement, int $min, int $max){
+
         if($afficherQuantitePositive){
             $sql = "SELECT * FROM article WHERE quantite > 0";
         }else{
             $sql = "SELECT * FROM article";
         }
+
         if($parCategorieUniquement)
         { 
-            $sql .= " and idCategorie =";
+            $sql .= " and idCategorie = ".$categorie;
         }
-        switch ($categorie) {
-            case "1":
-                $sql .= "1";
-                break;
-            case "2":
-                $sql .= "2";
-                break;
-            case "3":
-                $sql .= "3";
-                break;
+
+        if($min && $max){
+            $sql.= " and (prix between ".$min." and ".$max.")";
         }
+
         switch ($typeAffichage) {
             case "nomCroissant":
                 $sql .= " ORDER BY nomArticle";
@@ -50,10 +46,7 @@ class ArticlesManager{
                 $sql .= " ORDER BY prix DESC";
                 break;
         }
-        if($min && $max){
-                    $sql.= " and (prix between ".$min." and ".$max.")";
-        }
-        
+
         $total = $this->bdd->query($sql)->rowCount();
         $limit = 10;
     
@@ -74,10 +67,13 @@ class ArticlesManager{
         $this->nextlink = ($this->page < $this->pages) ? '<a href="?page=' . ($this->page + 1) . '" title="Next page">&rsaquo;</a> <a href="?page=' . $this->pages . '" title="Last page">&raquo;</a>' : '<span class="disabled">&rsaquo;</span> <span class="disabled">&raquo;</span>';
         $sql .=" LIMIT :limit OFFSET :offset";
         $req = $this->bdd->prepare($sql);
+        
         $req->bindParam(':limit', $limit, PDO::PARAM_INT);
         $req->bindParam(':offset', $offset, PDO::PARAM_INT);
         $req->execute();
+
         return $req->fetchAll();
+
     }
 
     public function getArticlesInfos(string $typeAffichage){
