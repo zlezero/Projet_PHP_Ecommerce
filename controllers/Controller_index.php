@@ -60,18 +60,18 @@ class Controller_index extends Controller {
 		$defaultCategorie = -1;
 		$categories = $categoriesManager->getAllCategories();
 
-		if(!empty($_POST) || !empty($_GET)){
+		if(!empty($_GET)){
 
 			if (isset($_GET["tri"])) {
 				$typeAffichage = $_GET["tri"];
 			} else {
-				$typeAffichage = $_POST['ordreSelect'] ?? false;
+				$typeAffichage = $_GET['ordreSelect'] ?? false;
 			}
 
-			$category = $_POST['idCategory'] ?? false;
+			$category = $_GET['idCategory'] ?? false;
 
-			$min = $_POST['min'] ?? false;
-			$max = $_POST['max'] ?? false;
+			$min = $_GET['min'] ?? false;
+			$max = $_GET['max'] ?? false;
 
 			if(is_numeric($category)){
 				$category = intval($category);
