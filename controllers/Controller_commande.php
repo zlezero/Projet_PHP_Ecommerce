@@ -39,7 +39,7 @@ class Controller_commande extends Controller {
 
 	public function action_liste(){
 
-		if (!$this->getSessionManager()->isAdmin()) {
+		if (!$this->getSessionManager()->isAdmin() && $this->getSessionManager()->isConnected()) {
 
 			$commandeManager=new CommandeManager();
 			$commandes=$commandeManager->getAll();
