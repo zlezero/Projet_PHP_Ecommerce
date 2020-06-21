@@ -8,18 +8,24 @@
                     <div class="list-group">
                         <?php foreach($data['categories'] as $indice => $value){
                         ?>
-                        <button type="submit" class="list-group-item list-group-item-light" value="<?= $value['idCategorie'] ?>"><?=$value['nomCategorie']?></button>
+                        <button type="submit" class="list-group-item list-group-item-light" name="idCategory" value="<?= $value['idCategorie'] ?>"><?=$value['nomCategorie']?></button>
                         <?php } ?>
-                        <label for="min">Min</label>
-                        <input type="text" name="min" placeholder="1">
-                        <label for="max" >Max</label>
-                        <input type="text" name="max" placeholder="100">
-                        <br>
-                        <button class="btn btn-primary" type="submit">Réinitialiser tous les filtres</button>
+                        <div class="list-group-item list-group-item-light">
+                            <div class="row">
+                                <div class="col-6">
+                                    <label for="min">Min</label>
+                                    <input type="text" class="form-control" name="min" placeholder="1">
+                                </div>
+                                <div class="col-6">
+                                    <label for="max" >Max</label>
+                                    <input type="text" class="form-control" name="max" placeholder="100">
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary list-group-item list-group-item-light" type="submit">Réinitialiser tous les filtres</button>
                     </div>
                 </form>
-
-
+                
             </div>
             <!-- /.col-lg-3 -->
 
@@ -83,9 +89,6 @@
                         <span class="sr-only">Next</span>
                     </a>
                 </div>
-                <div id="categorie1"hidden>Categorie1</div>
-                <div id="categorie2"hidden>Categorie2</div>
-                <div id="categorie3"hidden>Categorie3</div>
 
                 <form action ="?controller=index&action=orderBy" method="POST" class="form-inline">
                     <div class="form-group">
@@ -100,21 +103,30 @@
                     <button type="submit" class="btn btn-primary ml-3" value="tri">Trier</button>
                 </form>
                 </br>
-                <?php 
-                echo '<div id="paging"><p>', $data['prevlink'], ' Page ', $data['page'], '/', $data['pages'], $data['nextlink'], ' </p></div>';
-                ?>
+                <nav aria-label="Page navigation example" id="paging">
+                    <ul class="pagination">
+                        <li class="page-item"><?php echo  $data['prevlink']; ?></li>
+                        <?php for($i=1; $i<=$data['pages'];$i++){ ?>
+                            <?php if($data['page']===$i){ ?>
+                                <li class="page-item active"><a class="page-link" href="?page=<?=$i?>"><?=$i?></a></li>
+                            <?php }else{ ?>
+                                <li class="page-item"><a class="page-link" href="?page=<?=$i?>"><?=$i?></a></li>
+                            <?php } ?> 
+                        <?php
+                            }
+                        ?>
+                        <li class="page-item"><?php echo  $data['nextlink']; ?></li>
+                    </ul>
+                </nav>
+
                 <div class="row">
+                    <?php if(count($data['articles'])==0){ ?> <p>Nous ne disposons pas d'articles dans les filtres choisis.</p> <?php } ?>
+
                     <?php foreach($data['articles'] as $indice => $value){
-                        /*if(isset($value['idCategorie'])){
-                            require_once('models\Model.php');                        
-                            require_once('models\class.Categorie.php');
-                            $cat = new Categorie($value['idCategorie']);
-                            $categorie = $cat->getNomCategorie();
-                       }*/
                         ?>   
-                        <div class="col-lg-4 col-md-6 mb-4">
-                            <div class="card h-100">
-                                <a href="#"><img class="card-img-top" src="<?=$value['urlPhoto'];?>" alt=""></a>
+                        <div class="col-lg-6 col-md-6 mb-4">
+                            <div class="card h-100 w-100">
+                                <a href="#" ><center><img class="card-img-top" src="<?=$value['urlPhoto'];?>" alt=""></center></a>
                                 <div class="card-body">
                                     <h4 class="card-title">
                                         <a href="#"><?=$value['nomArticle']?></a>
@@ -129,11 +141,10 @@
                                     <a href="#" onclick="addPanier(<?=$value['idArticle'].','.$_SESSION['idCommande']?>)" class="btn btn-danger mt-3"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
                                 </div>
                             </div>
+                        </div>
                         <?php }?>
-                   </div>
-                <?php echo '<div id="paging"><p>', $data['prevlink'], ' Page ', $data['page'], '/', $data['pages'],$data['nextlink'], ' </p></div>';
-                ?>
-                
+                </div>
+        
                 <!-- /.row -->
 
             </div>

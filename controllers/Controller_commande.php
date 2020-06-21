@@ -30,10 +30,7 @@ class Controller_commande extends Controller {
         }
 		$commande=new Commande($_SESSION["idCommande"]);
 		$commande->setStatutCommande(new StatutCommande(2));
-		$commandeManager->updateStatutCommande($commande);
-		$this->render('consulter',[
-			'commande' => $commande
-		]);
+		$this->render('payement');
 	}
 
 	//TODO : ajouter les critères pour tourner sur l'utilisateur connecté TO DO
