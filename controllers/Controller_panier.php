@@ -40,7 +40,8 @@ class Controller_panier extends Controller {
                 }else{
                     $panier=new Panier(htmlspecialchars($_POST['idCommande']),htmlspecialchars($_POST['idArticle']));
                     if($panier->getQuantite()==1){
-                        $panierManager->deletePanier(htmlspecialchars($_POST['idCommande']),htmlspecialchars($_POST['idArticle']));
+                        $panier=new Panier(htmlspecialchars($_POST['idCommande']),htmlspecialchars($_POST['idArticle']));
+                        $panierManager->deletePanier($panier);
                     }else{
                         $panier->setQuantite($panier->getQuantite()-1);
                         $panierManager->updatePanier($panier);
@@ -63,7 +64,8 @@ class Controller_panier extends Controller {
                 if(!$panierManager->panierExist(htmlspecialchars($_POST['idCommande']),htmlspecialchars($_POST['idArticle']))){
                     throw new Exception("L'article n'appartient pas au panier");
                 }else{
-                    $panierManager->deletePanier(htmlspecialchars($_POST['idCommande']),htmlspecialchars($_POST['idArticle']));
+                    $panier=new Panier(htmlspecialchars($_POST['idCommande']),htmlspecialchars($_POST['idArticle']));
+                    $panierManager->deletePanier($panier);
                 }
             }
 
