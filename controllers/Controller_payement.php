@@ -27,7 +27,7 @@ class Controller_payement extends Controller {
     
                         if (isset($_POST["registerBankCard"])) {
                             $userManager = new UserManager();
-                            $this->getSessionManager()->getUser()->setCB(new CB())
+                            //$this->getSessionManager()->getUser()->setCB(new CB())
                         }
     
                         $commandeManager = new CommandeManager();
